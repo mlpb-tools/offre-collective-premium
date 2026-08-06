@@ -2203,7 +2203,7 @@ function render(){
     head.innerHTML = `
       <div class="icon">${iconSvg(block.icon)}</div>
       <h2>${BLOCK_EMOJI[block.id] ? `<span class="tile-emoji" aria-hidden="true">${BLOCK_EMOJI[block.id]}</span>` : ''}${escapeHtml(displayTitle(block))}</h2>
-      <p class="intro">${escapeHtml(document.body.classList.contains('mode-conseiller') ? block.introConseiller : block.introJeune)}</p>
+      ${document.body.classList.contains('mode-conseiller') ? '' : `<p class="intro">${escapeHtml(block.introJeune)}</p>`}
     `;
     head.onclick = ()=> tile.classList.toggle('open');
     tile.appendChild(head);
