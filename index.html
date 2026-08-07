@@ -2133,7 +2133,6 @@ function render(){
       <div class="icon">${iconSvg(block.icon)}</div>
       <h2>${BLOCK_EMOJI[block.id] ? `<span class="tile-emoji" aria-hidden="true">${BLOCK_EMOJI[block.id]}</span>` : ''}${escapeHtml(displayTitle(block))}</h2>
       ${block.introJeune ? `<p class="intro for-jeune"><em>${escapeHtml(block.introJeune)}</em></p>` : ''}
-      ${block.introConseiller ? `<p class="intro for-conseiller"><em>${escapeHtml(block.introConseiller)}</em></p>` : ''}
     `;
     head.onclick = ()=> tile.classList.toggle('open');
     tile.appendChild(head);
@@ -2566,7 +2565,6 @@ function openBlockTextModal(bi){
       <div class="full"><label for="mBlockYoungIntro">Phrase descriptive en italique</label><textarea id="mBlockYoungIntro" placeholder="Une phrase courte et concrète">${escapeHtml(block.introJeune||'')}</textarea></div>
       <div class="full modal-section-label">Entrée conseillers</div>
       <div class="full"><label for="mBlockAdvisorTitle">Intitulé du grand axe</label><input id="mBlockAdvisorTitle" value="${escAttr(block.titreConseiller||block.title||'')}"></div>
-      <div class="full"><label for="mBlockAdvisorIntro">Description interne</label><textarea id="mBlockAdvisorIntro" placeholder="Description synthétique de l’offre">${escapeHtml(block.introConseiller||'')}</textarea></div>
     </div>
     <div class="actions">
       <button class="btn primary" type="button" onclick="confirmBlockTextEdit(${bi})">${icon('check','icon-svg-sm')} Valider les textes</button>
@@ -2585,7 +2583,6 @@ function confirmBlockTextEdit(bi){
   block.titreConseiller=advisorTitle;
   block.title=youngTitle;
   block.introJeune=valueOf('mBlockYoungIntro').trim();
-  block.introConseiller=valueOf('mBlockAdvisorIntro').trim();
   logChange('modification', `Textes du grand axe « ${advisorTitle} »`);
   saveData();
   closeModal();
