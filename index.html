@@ -3,7 +3,7 @@
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Offre collective MLPB — V30</title>
+  <title>Offre collective MLPB — V34</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
@@ -198,6 +198,238 @@
     body.mode-conseiller .resource-wrap, body.mode-conseiller .session-card, body.mode-conseiller .field{border-radius:12px}
     body.mode-conseiller .resource-wrap > summary, body.mode-conseiller .session-card{padding:8px}
 
+</style>
+
+<style id="v33-territories-and-young-intros">
+  /* V33 : territoires accessibles sans volet ni défilement imbriqué. */
+  body.mode-conseiller fieldset.atelier-territories{
+    display:block !important;
+    min-width:0;
+    margin:0 !important;
+    padding:10px 12px 12px !important;
+    border:1px solid var(--cs-line) !important;
+    border-radius:14px !important;
+    background:var(--cs-surface-alt) !important;
+    overflow:visible !important;
+  }
+  body.mode-conseiller .atelier-territories-title{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:0 5px;
+    margin:0 0 7px !important;
+    color:var(--cs-ink) !important;
+  }
+  body.mode-conseiller fieldset.atelier-territories .atelier-territories-list{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px !important;
+    padding:0 !important;
+    max-height:none !important;
+    overflow:visible !important;
+  }
+  body.mode-conseiller fieldset.atelier-territories .atelier-territory{
+    width:100%;
+    min-width:0;
+    min-height:42px;
+    justify-content:flex-start;
+    padding:8px 10px !important;
+    border-radius:10px !important;
+    line-height:1.2;
+  }
+  body.mode-conseiller fieldset.atelier-territories .atelier-territories-count{
+    display:inline-flex;
+    padding:3px 7px;
+    border:1px solid var(--cs-line-strong);
+    border-radius:999px;
+    background:#fff;
+    font-size:10px;
+    letter-spacing:0;
+    text-transform:none;
+  }
+  .atelier-heading-text{
+    min-width:0;
+    flex:1;
+  }
+  .atelier-intro-young{
+    margin:5px 0 0;
+    font-size:12px;
+    line-height:1.4;
+    font-weight:500;
+    opacity:.92;
+  }
+  body.mode-jeune .atelier-head{
+    align-items:flex-start;
+  }
+  @media(max-width:520px){
+    body.mode-conseiller fieldset.atelier-territories .atelier-territories-list{
+      grid-template-columns:1fr;
+    }
+  }
+</style>
+
+<style id="v32-workshop-readability">
+  /* V32 : hiérarchie claire à l’intérieur d’un atelier, côté conseiller. */
+  body.mode-conseiller .category-workshops .atelier > summary{
+    padding:14px 16px !important;
+    border-bottom:1px solid transparent;
+  }
+  body.mode-conseiller .category-workshops .atelier[open] > summary{
+    border-bottom-color:var(--cs-line);
+  }
+  body.mode-conseiller .category-workshops .atelier-content{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding:14px !important;
+  }
+  body.mode-conseiller .atelier-overview{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    padding:12px 14px;
+    border:1px solid var(--cs-line);
+    border-radius:14px;
+    background:var(--cs-surface-alt);
+  }
+  body.mode-conseiller .atelier-overview:empty{display:none;}
+  body.mode-conseiller .atelier-overview .atelier-objective,
+  body.mode-conseiller .atelier-overview .bullets,
+  body.mode-conseiller .atelier-overview .fiche-descriptive,
+  body.mode-conseiller .atelier-overview .atelier-resource-link{
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+  }
+  body.mode-conseiller .atelier-overview .atelier-objective{
+    font-size:13px;
+    line-height:1.5;
+  }
+  body.mode-conseiller details.atelier-territories{
+    margin:0 !important;
+    padding:0 !important;
+    overflow:hidden;
+    border:1px solid var(--cs-line) !important;
+    border-radius:14px !important;
+    background:var(--cs-surface-alt) !important;
+  }
+  body.mode-conseiller .atelier-territories-summary{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:11px 13px;
+    cursor:pointer;
+    list-style:none;
+    color:var(--cs-ink);
+    font-size:12px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+  body.mode-conseiller .atelier-territories-summary::-webkit-details-marker{display:none;}
+  body.mode-conseiller .atelier-territories-summary-meta{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    flex:none;
+  }
+  body.mode-conseiller .atelier-territories-count{
+    padding:4px 8px;
+    border:1px solid var(--cs-line-strong);
+    border-radius:999px;
+    background:#fff;
+    font-size:11px;
+    letter-spacing:0;
+    text-transform:none;
+  }
+  body.mode-conseiller .atelier-territories-chevron{
+    display:inline-flex;
+    transition:transform .15s ease;
+  }
+  body.mode-conseiller details.atelier-territories[open] .atelier-territories-chevron{transform:rotate(180deg);}
+  body.mode-conseiller .atelier-territories-list{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px !important;
+    padding:0 12px 12px;
+  }
+  body.mode-conseiller .atelier-territory{
+    width:100%;
+    min-width:0;
+    justify-content:flex-start;
+    padding:8px 10px !important;
+    border-radius:10px !important;
+    line-height:1.2;
+  }
+  body.mode-conseiller .atelier-tools{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-items:end;
+    gap:10px;
+    margin:0 !important;
+    padding:12px 0 2px;
+    border-top:1px solid var(--cs-line);
+  }
+  body.mode-conseiller .atelier-tools-main{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px;
+  }
+  body.mode-conseiller .atelier-tools-secondary{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:8px;
+  }
+  body.mode-conseiller .atelier-tools .btn{margin:0 !important;}
+  body.mode-conseiller .atelier-tools .danger-outline{white-space:nowrap;}
+  body.mode-conseiller .atelier-content > .resource-wrap{
+    margin-top:0 !important;
+    border-width:1.5px !important;
+  }
+  @media(max-width:760px){
+    body.mode-conseiller .atelier-territories-list{grid-template-columns:1fr;}
+    body.mode-conseiller .atelier-tools{grid-template-columns:1fr;}
+    body.mode-conseiller .atelier-tools-secondary{align-items:stretch;}
+    body.mode-conseiller .atelier-tools-secondary .btn{justify-content:center;}
+  }
+</style>
+
+<style id="v31-subcategory-spacing-fix">
+  /* V31 : le compteur et les actions disposent chacun de leur propre zone. */
+  body.mode-conseiller .subcategory{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) auto !important;
+    align-items:center !important;
+    column-gap:10px !important;
+  }
+  body.mode-conseiller .subcategory-main{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) auto !important;
+    align-items:center !important;
+    gap:8px !important;
+    width:100% !important;
+    min-width:0 !important;
+  }
+  body.mode-conseiller .subcategory-title{
+    min-width:0 !important;
+    overflow-wrap:anywhere;
+  }
+  body.mode-conseiller .subcategory .count{
+    position:static !important;
+    flex:none !important;
+    justify-self:end;
+    margin:0 !important;
+  }
+  body.mode-conseiller .subcategory-actions{
+    position:static !important;
+    display:flex !important;
+    align-items:center !important;
+    flex-wrap:nowrap !important;
+    gap:6px !important;
+    min-width:max-content;
+  }
 </style>
 
 <style id="v8-overrides">
@@ -1418,6 +1650,7 @@ function normalizeMobilityCategories(data){
   if(!block || !Array.isArray(block.categories)) return;
   const mergeTitles=new Set(['Faire le point sur mes déplacements','Trouver une solution pour mes trajets','Organiser mes déplacements']);
   const sources=block.categories.filter(category=>mergeTitles.has(category.title));
+  if(sources.length <= 1) return;
   const existingInternational=block.categories.find(category=>category.title==='Partir à l’étranger');
   const mergedWorkshops=[];
   sources.forEach(category=>(category.ateliers||[]).forEach(atelier=>{
@@ -1446,6 +1679,7 @@ function normalizeEmploymentCategories(data){
   if(!block || !Array.isArray(block.categories)) return;
   const mergeTitles=new Set(['Préparer ma candidature','Réussir mon entretien','Me préparer à rencontrer un employeur']);
   const sources=block.categories.filter(category=>mergeTitles.has(category.title));
+  if(sources.length <= 1) return;
   const mergedWorkshops=[];
   sources.forEach(category=>(category.ateliers||[]).forEach(atelier=>{
     if(!mergedWorkshops.some(item=>item.title===atelier.title)) mergedWorkshops.push(atelier);
@@ -1474,7 +1708,7 @@ function normalizeV30Content(data){
     'offre-externe':'Découvrir les ateliers proposés avec nos partenaires.'
   };
   (data.blocks||[]).forEach(block=>{
-    if(block.id === 'projet'){
+    if(block.id === 'projet' && (!block.titreConseiller || block.titreConseiller === 'PROJET PROFESSIONNEL — Connaissance de soi et construction')){
       block.titreConseiller = 'PROJET PROFESSIONNEL — Connaissance de soi et construction de projet';
     }
     if(!block.introJeune && descriptions[block.id]) block.introJeune = descriptions[block.id];
@@ -1899,6 +2133,7 @@ function render(){
       <div class="icon">${iconSvg(block.icon)}</div>
       <h2>${BLOCK_EMOJI[block.id] ? `<span class="tile-emoji" aria-hidden="true">${BLOCK_EMOJI[block.id]}</span>` : ''}${escapeHtml(displayTitle(block))}</h2>
       ${block.introJeune ? `<p class="intro for-jeune"><em>${escapeHtml(block.introJeune)}</em></p>` : ''}
+      ${block.introConseiller ? `<p class="intro for-conseiller"><em>${escapeHtml(block.introConseiller)}</em></p>` : ''}
     `;
     head.onclick = ()=> tile.classList.toggle('open');
     tile.appendChild(head);
@@ -1908,7 +2143,7 @@ function render(){
 
     const blockTools = document.createElement('div');
     blockTools.className = 'tile-tools for-conseiller';
-    blockTools.innerHTML = `<span class="small-note">${block.categories.length} sous-catégorie${block.categories.length>1?'s':''}</span><button class="btn mini editable" type="button" onclick="openCategoryModal(${bi})">${icon('plus','icon-svg-sm')} Sous-catégorie</button>`;
+    blockTools.innerHTML = `<span class="small-note">${block.categories.length} sous-catégorie${block.categories.length>1?'s':''}</span><span style="display:flex;gap:7px;flex-wrap:wrap"><button class="btn mini subtle editable" type="button" onclick="openBlockTextModal(${bi})">${icon('pencil','icon-svg-sm')} Modifier les textes</button><button class="btn mini editable" type="button" onclick="openCategoryModal(${bi})">${icon('plus','icon-svg-sm')} Sous-catégorie</button></span>`;
     body.appendChild(blockTools);
 
     block.categories.forEach((category, ci)=>{
@@ -1933,6 +2168,7 @@ function renderSubcategory(block, category, bi, ci, entries){
       <span class="count">${entries.length}</span>
     </button>
     <span class="subcategory-actions">
+      <button class="icon-action for-conseiller" type="button" aria-label="Modifier la sous-catégorie ${escAttr(label)}" title="Modifier les intitulés" onclick="openCategoryEditModal(${bi},${ci})">${icon('pencil')}</button>
       <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie ${escAttr(label)}" title="Supprimer cette sous-catégorie" onclick="removeCategory(${bi},${ci})">${icon('trash')}</button>
       <button class="icon-action icon-action-nav" type="button" aria-label="Ouvrir la sous-catégorie ${escAttr(label)}" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(${bi},${ci})">${icon('chevron')}</button>
     </span>`;
@@ -1969,6 +2205,7 @@ function openSubcategory(bi, ci){
 
 function renderAtelier(block, atelier, bi, ai){
   const details = document.createElement('details');
+  const atelierLabel = displayTitle(atelier);
   const inscritsCount = (atelier.sessions || []).reduce((sum, s) => sum + (s.inscrits || 0), 0);
   const allAvis = (atelier.sessions || []).flatMap(s => s.avis || []);
   const avisCount = allAvis.length;
@@ -1979,16 +2216,20 @@ function renderAtelier(block, atelier, bi, ai){
   details.innerHTML = `
     <summary>
       <div class="atelier-head">
-        <div class="atelier-title">${escapeHtml(atelier.title)}</div>
+        <div class="atelier-heading-text">
+          <div class="atelier-title">${escapeHtml(atelierLabel)}</div>
+          ${atelier.objectif ? `<p class="atelier-intro-young for-jeune"><em>${escapeHtml(atelier.objectif)}</em></p>` : ''}
+        </div>
         ${avisCount ? `<span class="inscrits-badge stars-badge" title="${avisCount} avis reçus">${icon('star','icon-svg-sm star-filled')} ${avisAverage.toFixed(1)}</span>` : ''}
         ${inscritsCount ? `<span class="inscrits-badge" title="${inscritsCount} inscrit${inscritsCount>1?'s':''} au total">${icon('users','icon-svg-sm')} ${inscritsCount}</span>` : ''}
       </div>
       <div class="atelier-summary-actions">
-        <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer l’atelier ${escAttr(atelier.title)}" title="Supprimer cet atelier" onclick="event.preventDefault();event.stopPropagation();removeAtelier(${bi},${ai})">${icon('trash')}</button>
-        <button class="icon-action atelier-toggle" type="button" aria-label="Afficher l’atelier ${escAttr(atelier.title)}" title="Afficher ou réduire cet atelier" onclick="event.preventDefault();event.stopPropagation();toggleAtelier(this)">${icon('chevron')}</button>
+        <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer l’atelier ${escAttr(atelierLabel)}" title="Supprimer cet atelier" onclick="event.preventDefault();event.stopPropagation();removeAtelier(${bi},${ai})">${icon('trash')}</button>
+        <button class="icon-action atelier-toggle" type="button" aria-label="Afficher l’atelier ${escAttr(atelierLabel)}" title="Afficher ou réduire cet atelier" onclick="event.preventDefault();event.stopPropagation();toggleAtelier(this)">${icon('chevron')}</button>
       </div>
     </summary>
     <div class="atelier-content">
+      <div class="atelier-overview">
       ${atelier.objectif ? `<p class="atelier-objective">${escapeHtml(atelier.objectif)}</p>` : ''}
       ${(atelier.duree || atelier.format || atelier.places || atelier.intervenant || atelier.prerequis) ? `
       <div class="fiche-descriptive">
@@ -2000,18 +2241,26 @@ function renderAtelier(block, atelier, bi, ai){
       </div>` : ''}
       ${safeUrl(atelier.lien) ? `<div class="atelier-resource-link"><a class="btn mini primary" href="${escAttr(safeUrl(atelier.lien))}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${icon('link','icon-svg-sm')} Ouvrir le module</a></div>` : ''}
       ${(atelier.contenu || []).length ? `<ul class="bullets">${atelier.contenu.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>` : ''}
+      </div>
       <fieldset class="atelier-territories for-conseiller">
-        <legend class="atelier-territories-title">Territoires proposés</legend>
+        <legend class="atelier-territories-title">
+          <span>Territoires proposés</span>
+          <span class="atelier-territories-count">${getAtelierTerritories(atelier).length} / ${TERRITORIES.length}</span>
+        </legend>
         <div class="atelier-territories-list">
           ${TERRITORIES.map(t=>`<label class="atelier-territory"><input type="checkbox" ${getAtelierTerritories(atelier).includes(t.id)?'checked':''} onchange="toggleAtelierTerritory(${bi},${ai},'${t.id}',this)"> ${escapeHtml(t.label)}</label>`).join('')}
         </div>
       </fieldset>
-      <div class="atelier-tools editable for-conseiller" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:2px;margin-bottom:10px;">
-        <button class="btn mini subtle" onclick="editAtelier(${bi},${ai})">${icon('pencil','icon-svg-sm')} Modifier</button>
-        <button class="btn mini ${hasFiche ? 'subtle' : 'primary'}" onclick="openFicheModal(${bi},${ai})">${icon('file','icon-svg-sm')} ${hasFiche ? 'Fiche technique' : '+ Ajouter une fiche technique'}</button>
-        <button class="btn mini subtle" onclick="openAvisReviewModal(${bi},${ai})">${icon('star','icon-svg-sm')} Avis reçus${avisCount ? ` (${avisCount})` : ''}</button>
-        <button class="btn mini subtle" onclick="exportAtelierSessionsCSV(${bi},${ai})" title="Exporter les sessions de cet atelier en CSV">${icon('download','icon-svg-sm')} Exporter les sessions</button>
-        <button class="btn mini danger-outline" style="margin-left:auto" onclick="removeAtelier(${bi},${ai})">${icon('trash','icon-svg-sm')} Supprimer</button>
+      <div class="atelier-tools editable for-conseiller">
+        <div class="atelier-tools-main">
+          <button class="btn mini subtle" onclick="editAtelier(${bi},${ai})">${icon('pencil','icon-svg-sm')} Modifier</button>
+          <button class="btn mini ${hasFiche ? 'subtle' : 'primary'}" onclick="openFicheModal(${bi},${ai})">${icon('file','icon-svg-sm')} ${hasFiche ? 'Fiche technique' : '+ Ajouter une fiche technique'}</button>
+          <button class="btn mini subtle" onclick="openAvisReviewModal(${bi},${ai})">${icon('star','icon-svg-sm')} Avis reçus${avisCount ? ` (${avisCount})` : ''}</button>
+        </div>
+        <div class="atelier-tools-secondary">
+          <button class="btn mini subtle" onclick="exportAtelierSessionsCSV(${bi},${ai})" title="Exporter les sessions de cet atelier en CSV">${icon('download','icon-svg-sm')} Exporter les sessions</button>
+          <button class="btn mini danger-outline" onclick="removeAtelier(${bi},${ai})">${icon('trash','icon-svg-sm')} Supprimer</button>
+        </div>
       </div>
       ${renderSessions(atelier, bi, ai)}
     </div>
@@ -2020,7 +2269,7 @@ function renderAtelier(block, atelier, bi, ai){
     const toggle=details.querySelector('.atelier-toggle');
     if(toggle){
       toggle.classList.toggle('is-open', details.open);
-      toggle.setAttribute('aria-label',`${details.open?'Réduire':'Afficher'} l’atelier ${atelier.title}`);
+      toggle.setAttribute('aria-label',`${details.open?'Réduire':'Afficher'} l’atelier ${atelierLabel}`);
     }
   });
   return details;
@@ -2043,6 +2292,8 @@ function toggleAtelierTerritory(bi,ai,territoryId,input){
   }
   atelier.territories=[...territories];
   saveData();
+  const counter=input.closest('.atelier-territories')?.querySelector('.atelier-territories-count');
+  if(counter) counter.textContent=`${atelier.territories.length} / ${TERRITORIES.length}`;
   if(selectedTerritory!=='all' && !atelier.territories.includes(selectedTerritory)){
     const entry=getAtelierEntry(bi,ai);
     render();
@@ -2274,8 +2525,9 @@ function openAtelierModal(bi, ci){
   document.getElementById('modalTitle').textContent = 'Ajouter un atelier';
   document.getElementById('modalContent').innerHTML = `
     <div class="modal-grid">
-      <div class="full"><label>Intitulé de l’atelier</label><input id="mAtelierTitle" placeholder="Ex. Préparer ma candidature"><span class="field-help">Visible par les jeunes et les conseillers dans la liste des ateliers.</span></div>
-      <div class="full"><label>Objectif</label><textarea id="mAtelierObjectif" placeholder="Objectif opérationnel"></textarea></div>
+      <div class="full"><label>Intitulé visible par les jeunes</label><input id="mAtelierYoungTitle" placeholder="Ex. Préparer ma candidature"></div>
+      <div class="full"><label>Intitulé visible par les conseillers</label><input id="mAtelierAdvisorTitle" placeholder="Ex. Préparation candidature"></div>
+      <div class="full"><label>Phrase descriptive pour les jeunes</label><textarea id="mAtelierObjectif" placeholder="Une phrase courte, concrète et formulée à la première personne"></textarea><span class="field-help">Cette phrase apparaît en italique sous le titre de l’atelier.</span></div>
       <div class="full"><label>Lien de la ressource (optionnel)</label><input id="mAtelierLien" type="url" placeholder="https://..."><span class="field-help">Si renseigné, un bouton « Ouvrir le module » apparaît sur la fiche.</span></div>
       <div class="full"><label>Actions proposées</label><textarea id="mAtelierContenu" placeholder="Une action par ligne"></textarea><span class="field-help">Une ligne = une action affichée en liste à puces.</span></div>
       <div class="full modal-section-label">Fiche descriptive (optionnel)</div>
@@ -2301,12 +2553,86 @@ function openAtelierModal(bi, ci){
   openModal();
 }
 
+function openBlockTextModal(bi){
+  const block=appData.blocks[bi];
+  if(!block) return;
+  useStandardModal();
+  document.getElementById('modalTitle').textContent='Modifier les textes du grand axe';
+  document.getElementById('modalContent').innerHTML=`
+    <p class="small-note" style="margin-bottom:12px;">Les textes jeunes et conseillers peuvent être différents. Ces modifications ne changent ni les ateliers ni les sessions.</p>
+    <div class="modal-grid">
+      <div class="full modal-section-label">Entrée jeunes</div>
+      <div class="full"><label for="mBlockYoungTitle">Intitulé du grand axe</label><input id="mBlockYoungTitle" value="${escAttr(block.titreJeune||block.title||'')}"></div>
+      <div class="full"><label for="mBlockYoungIntro">Phrase descriptive en italique</label><textarea id="mBlockYoungIntro" placeholder="Une phrase courte et concrète">${escapeHtml(block.introJeune||'')}</textarea></div>
+      <div class="full modal-section-label">Entrée conseillers</div>
+      <div class="full"><label for="mBlockAdvisorTitle">Intitulé du grand axe</label><input id="mBlockAdvisorTitle" value="${escAttr(block.titreConseiller||block.title||'')}"></div>
+      <div class="full"><label for="mBlockAdvisorIntro">Description interne</label><textarea id="mBlockAdvisorIntro" placeholder="Description synthétique de l’offre">${escapeHtml(block.introConseiller||'')}</textarea></div>
+    </div>
+    <div class="actions">
+      <button class="btn primary" type="button" onclick="confirmBlockTextEdit(${bi})">${icon('check','icon-svg-sm')} Valider les textes</button>
+      <button class="btn" type="button" onclick="closeModal()">Annuler</button>
+    </div>`;
+  openModal();
+}
+
+function confirmBlockTextEdit(bi){
+  const block=appData.blocks[bi];
+  if(!block) return;
+  const youngTitle=valueOf('mBlockYoungTitle').trim();
+  const advisorTitle=valueOf('mBlockAdvisorTitle').trim();
+  if(!youngTitle || !advisorTitle){ showToast('Les deux intitulés sont obligatoires.','warning'); return; }
+  block.titreJeune=youngTitle;
+  block.titreConseiller=advisorTitle;
+  block.title=youngTitle;
+  block.introJeune=valueOf('mBlockYoungIntro').trim();
+  block.introConseiller=valueOf('mBlockAdvisorIntro').trim();
+  logChange('modification', `Textes du grand axe « ${advisorTitle} »`);
+  saveData();
+  closeModal();
+  render();
+  showToast('Textes du grand axe mis à jour. Pense à cliquer sur Enregistrer.','success');
+}
+
+function openCategoryEditModal(bi,ci){
+  const category=appData.blocks[bi]?.categories?.[ci];
+  if(!category) return;
+  useStandardModal();
+  document.getElementById('modalTitle').textContent='Modifier la sous-rubrique';
+  document.getElementById('modalContent').innerHTML=`
+    <div class="modal-grid">
+      <div class="full"><label for="mCategoryYoungTitle">Intitulé visible par les jeunes</label><input id="mCategoryYoungTitle" value="${escAttr(category.titreJeune||category.title||'')}"></div>
+      <div class="full"><label for="mCategoryAdvisorTitle">Intitulé visible par les conseillers</label><input id="mCategoryAdvisorTitle" value="${escAttr(category.titreConseiller||category.title||'')}"></div>
+    </div>
+    <div class="actions">
+      <button class="btn primary" type="button" onclick="confirmCategoryEdit(${bi},${ci})">${icon('check','icon-svg-sm')} Valider les intitulés</button>
+      <button class="btn" type="button" onclick="closeModal()">Annuler</button>
+    </div>`;
+  openModal();
+}
+
+function confirmCategoryEdit(bi,ci){
+  const category=appData.blocks[bi]?.categories?.[ci];
+  if(!category) return;
+  const youngTitle=valueOf('mCategoryYoungTitle').trim();
+  const advisorTitle=valueOf('mCategoryAdvisorTitle').trim();
+  if(!youngTitle || !advisorTitle){ showToast('Les deux intitulés sont obligatoires.','warning'); return; }
+  category.titreJeune=youngTitle;
+  category.titreConseiller=advisorTitle;
+  category.title=advisorTitle;
+  logChange('modification', `Sous-rubrique « ${advisorTitle} »`);
+  saveData();
+  closeModal();
+  render();
+  showToast('Sous-rubrique mise à jour. Pense à cliquer sur Enregistrer.','success');
+}
+
 function openCategoryModal(bi){
   useStandardModal();
   document.getElementById('modalTitle').textContent='Ajouter une sous-catégorie';
   document.getElementById('modalContent').innerHTML=`
     <div class="modal-grid">
-      <div class="full"><label for="mCategoryTitle">Nom de la sous-catégorie</label><input id="mCategoryTitle" placeholder="Ex. Découvrir les secteurs qui recrutent"></div>
+      <div class="full"><label for="mCategoryYoungTitle">Intitulé visible par les jeunes</label><input id="mCategoryYoungTitle" placeholder="Ex. Découvrir les métiers"></div>
+      <div class="full"><label for="mCategoryAdvisorTitle">Intitulé visible par les conseillers</label><input id="mCategoryAdvisorTitle" placeholder="Ex. Découverte métiers et secteurs"></div>
     </div>
     <div class="actions">
       <button class="btn primary" type="button" onclick="confirmAddCategory(${bi})">${icon('plus','icon-svg-sm')} Ajouter</button>
@@ -2316,9 +2642,11 @@ function openCategoryModal(bi){
 }
 
 function confirmAddCategory(bi){
-  const title=valueOf('mCategoryTitle').trim();
-  if(!title){ showToast('Le nom de la sous-catégorie est obligatoire.','warning'); return; }
-  appData.blocks[bi].categories.push({title,objectif:'',ateliers:[]});
+  const youngTitle=valueOf('mCategoryYoungTitle').trim();
+  const advisorTitle=valueOf('mCategoryAdvisorTitle').trim();
+  if(!youngTitle || !advisorTitle){ showToast('Les deux intitulés sont obligatoires.','warning'); return; }
+  const title=advisorTitle;
+  appData.blocks[bi].categories.push({title,titreJeune:youngTitle,titreConseiller:advisorTitle,objectif:'',ateliers:[]});
   const ci=appData.blocks[bi].categories.length-1;
   logChange('ajout', `Sous-catégorie « ${title} » (${appData.blocks[bi].title})`);
   saveData();
@@ -2351,12 +2679,16 @@ function removeCategory(bi,ci){
 function confirmAddAtelier(bi, ci){
   const block = appData.blocks[bi];
   const category = block.categories[ci];
-  const title = valueOf('mAtelierTitle').trim();
-  if(!title){ showToast('Intitulé obligatoire.','warning'); return; }
+  const youngTitle = valueOf('mAtelierYoungTitle').trim();
+  const advisorTitle = valueOf('mAtelierAdvisorTitle').trim();
+  if(!youngTitle || !advisorTitle){ showToast('Les deux intitulés sont obligatoires.','warning'); return; }
+  const title = advisorTitle;
   const territories = checkedTerritories();
   if(!territories.length){ showToast('Sélectionne au moins un territoire.','warning'); return; }
   category.ateliers.push({
     title,
+    titreJeune:youngTitle,
+    titreConseiller:advisorTitle,
     objectif:valueOf('mAtelierObjectif').trim(),
     lien:valueOf('mAtelierLien').trim(),
     contenu:valueOf('mAtelierContenu').split(/\n+/).map(s=>s.trim()).filter(Boolean),
@@ -2424,8 +2756,9 @@ function editAtelier(bi, ai){
   document.getElementById('modalTitle').textContent = 'Modifier l’atelier';
   document.getElementById('modalContent').innerHTML = `
     <div class="modal-grid">
-      <div class="full"><label>Intitulé de l’atelier</label><input id="mAtelierTitle" value="${escAttr(a.title||'')}"></div>
-      <div class="full"><label>Objectif</label><textarea id="mAtelierObjectif">${escapeHtml(a.objectif||'')}</textarea></div>
+      <div class="full"><label>Intitulé visible par les jeunes</label><input id="mAtelierYoungTitle" value="${escAttr(a.titreJeune||a.title||'')}"></div>
+      <div class="full"><label>Intitulé visible par les conseillers</label><input id="mAtelierAdvisorTitle" value="${escAttr(a.titreConseiller||a.title||'')}"></div>
+      <div class="full"><label>Phrase descriptive pour les jeunes</label><textarea id="mAtelierObjectif">${escapeHtml(a.objectif||'')}</textarea><span class="field-help">Cette phrase apparaît en italique sous le titre de l’atelier.</span></div>
       <div class="full"><label>Lien de la ressource (optionnel)</label><input id="mAtelierLien" type="url" value="${escAttr(a.lien||'')}" placeholder="https://..."><span class="field-help">Si renseigné, un bouton « Ouvrir le module » apparaît sur la fiche.</span></div>
       <div class="full"><label>Actions proposées</label><textarea id="mAtelierContenu">${escapeHtml((a.contenu||[]).join('\n'))}</textarea></div>
       <div class="full modal-section-label">Fiche descriptive (optionnel)</div>
@@ -2454,11 +2787,15 @@ function editAtelier(bi, ai){
 function confirmEditAtelier(bi, ai){
   const entry=getAtelierEntry(bi,ai);
   const a = getAtelier(bi, ai);
-  const title = valueOf('mAtelierTitle').trim();
-  if(!title){ showToast('Intitulé obligatoire.','warning'); return; }
+  const youngTitle = valueOf('mAtelierYoungTitle').trim();
+  const advisorTitle = valueOf('mAtelierAdvisorTitle').trim();
+  if(!youngTitle || !advisorTitle){ showToast('Les deux intitulés sont obligatoires.','warning'); return; }
+  const title = advisorTitle;
   const territories = checkedTerritories();
   if(!territories.length){ showToast('Sélectionne au moins un territoire.','warning'); return; }
   a.title = title;
+  a.titreJeune = youngTitle;
+  a.titreConseiller = advisorTitle;
   a.objectif = valueOf('mAtelierObjectif').trim();
   a.lien = valueOf('mAtelierLien').trim();
   a.contenu = valueOf('mAtelierContenu').split(/\n+/).map(s=>s.trim()).filter(Boolean);
