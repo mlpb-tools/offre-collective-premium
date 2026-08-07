@@ -3,7 +3,7 @@
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Offre collective MLPB — V1 ateliers</title>
+  <title>Offre collective MLPB — V29</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
@@ -947,376 +947,31 @@
         <button class="btn mini subtle" type="button" onclick="openLogModal()" title="Voir l’historique des modifications">Journal</button>
         <button class="btn mini subtle" type="button" onclick="exportData()" title="Télécharger un fichier JSON de l’état actuel">Exporter</button>
         <button class="btn mini subtle" type="button" onclick="document.getElementById('importFile').click()" title="Charger un fichier JSON exporté précédemment">Importer</button>
-        <button class="btn mini subtle" type="button" id="publishGithubBtn" onclick="publishToGithub()" title="Committer les données actuelles directement sur GitHub">Publier sur GitHub</button>
-        <button class="icon-action" type="button" id="githubSettingsBtn" onclick="openGithubSettingsModal()" title="Paramètres de connexion GitHub" aria-label="Paramètres de connexion GitHub">⚙</button>
         <button class="btn mini danger-outline" type="button" onclick="resetData()" title="Revenir à la version de départ">Réinitialiser</button>
       </div>
     </div>
   </header>
 
   <main class="app-shell">
-    <div id="mindmap" class="mindmap-grid"><section class="tile blue open" data-block="0"><div class="tile-head">
-      <div class="icon"><svg viewBox="0 0 64 64"><path d="M22 18h20a4 4 0 0 1 4 4v24a4 4 0 0 1-4 4H22a4 4 0 0 1-4-4V22a4 4 0 0 1 4-4Z"></path><path d="M26 18v-4a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v4"></path><path d="M18 31h28"></path><path d="M30 31v5"></path><path d="M34 31v5"></path></svg></div>
-      <h2>JE VEUX TROUVER UN EMPLOI</h2>
-      <p class="intro">Offre consolidée emploi : candidature, entretien, découverte des secteurs et rencontres employeurs.</p>
-    </div><div class="tile-body"><div class="tile-tools for-conseiller"><span class="small-note">2 sous-catégories</span><button class="btn mini editable" type="button" onclick="openCategoryModal(0)">+ Sous-catégorie</button></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Me préparer à rencontrer un employeur, 4 ateliers" onclick="openSubcategory(0,0)">
-      <span class="subcategory-title">Me préparer à rencontrer un employeur</span>
-      <span class="count">4</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Me préparer à rencontrer un employeur" title="Supprimer cette sous-catégorie" onclick="removeCategory(0,0)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Me préparer à rencontrer un employeur" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(0,0)">+</button>
-    </span></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Rencontrer des employeurs, 3 ateliers" onclick="openSubcategory(0,1)">
-      <span class="subcategory-title">Rencontrer des employeurs</span>
-      <span class="count">3</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Rencontrer des employeurs" title="Supprimer cette sous-catégorie" onclick="removeCategory(0,1)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Rencontrer des employeurs" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(0,1)">+</button>
-    </span></div></div></section><section class="tile pink open" data-block="1"><div class="tile-head">
-      <div class="icon"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="22"></circle><path d="M39 25l-6 14-8 3 6-14 8-3Z"></path><path d="M32 10v6"></path><path d="M32 48v6"></path><path d="M10 32h6"></path><path d="M48 32h6"></path></svg></div>
-      <h2>JE VEUX CONSTRUIRE MON PROJET</h2>
-      <p class="intro">Offre consolidée projet : connaissance de soi, construction du projet et confrontation aux métiers.</p>
-    </div><div class="tile-body"><div class="tile-tools for-conseiller"><span class="small-note">3 sous-catégories</span><button class="btn mini editable" type="button" onclick="openCategoryModal(1)">+ Sous-catégorie</button></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Mieux me connaître et identifier mes atouts, 4 ateliers" onclick="openSubcategory(1,0)">
-      <span class="subcategory-title">Mieux me connaître et identifier mes atouts</span>
-      <span class="count">4</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Mieux me connaître et identifier mes atouts" title="Supprimer cette sous-catégorie" onclick="removeCategory(1,0)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Mieux me connaître et identifier mes atouts" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(1,0)">+</button>
-    </span></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Construire mon projet professionnel, 4 ateliers" onclick="openSubcategory(1,1)">
-      <span class="subcategory-title">Construire mon projet professionnel</span>
-      <span class="count">4</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Construire mon projet professionnel" title="Supprimer cette sous-catégorie" onclick="removeCategory(1,1)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Construire mon projet professionnel" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(1,1)">+</button>
-    </span></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Découvrir des métiers et préparer une immersion, 4 ateliers" onclick="openSubcategory(1,2)">
-      <span class="subcategory-title">Découvrir des métiers et préparer une immersion</span>
-      <span class="count">4</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Découvrir des métiers et préparer une immersion" title="Supprimer cette sous-catégorie" onclick="removeCategory(1,2)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Découvrir des métiers et préparer une immersion" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(1,2)">+</button>
-    </span></div></div></section><section class="tile gold open" data-block="2"><div class="tile-head">
-      <div class="icon"><svg viewBox="0 0 64 64"><path d="M22 11h20a4 4 0 0 1 4 4v24a4 4 0 0 1-4 4H22a4 4 0 0 1-4-4V15a4 4 0 0 1 4-4Z"></path><path d="M24 20h16"></path><path d="M24 27h16"></path><circle cx="32" cy="35" r="5"></circle><path d="M29 40l-2 10 5-3 5 3-2-10"></path></svg></div>
-      <h2>JE VEUX TROUVER UNE FORMATION</h2>
-      <p class="intro">Offre consolidée formation : choix, candidature, rencontres CFA et sécurisation de l’entrée.</p>
-    </div><div class="tile-body"><div class="tile-tools for-conseiller"><span class="small-note">2 sous-catégories</span><button class="btn mini editable" type="button" onclick="openCategoryModal(2)">+ Sous-catégorie</button></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Choisir ma formation, 3 ateliers" onclick="openSubcategory(2,0)">
-      <span class="subcategory-title">Choisir ma formation</span>
-      <span class="count">3</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Choisir ma formation" title="Supprimer cette sous-catégorie" onclick="removeCategory(2,0)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Choisir ma formation" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(2,0)">+</button>
-    </span></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Préparer mon entrée en formation, 2 ateliers" onclick="openSubcategory(2,1)">
-      <span class="subcategory-title">Préparer mon entrée en formation</span>
-      <span class="count">2</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Préparer mon entrée en formation" title="Supprimer cette sous-catégorie" onclick="removeCategory(2,1)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Préparer mon entrée en formation" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(2,1)">+</button>
-    </span></div></div></section><section class="tile coral open" data-block="3"><div class="tile-head">
-      <div class="icon"><svg viewBox="0 0 64 64"><path d="M20 15h24a6 6 0 0 1 6 6v18H14V21a6 6 0 0 1 6-6Z"></path><path d="M18 39h28"></path><path d="M20 25h24"></path><circle cx="22" cy="45" r="3"></circle><circle cx="42" cy="45" r="3"></circle><path d="M20 48v4"></path><path d="M44 48v4"></path></svg></div>
-      <h2>JE VEUX BOUGER PLUS FACILEMENT</h2>
-      <p class="intro">Offre consolidée mobilité : solutions de déplacement, autonomie et mobilité internationale.</p>
-    </div><div class="tile-body"><div class="tile-tools for-conseiller"><span class="small-note">3 sous-catégories</span><button class="btn mini editable" type="button" onclick="openCategoryModal(3)">+ Sous-catégorie</button></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Organiser mes déplacements, 1 ateliers" onclick="openSubcategory(3,0)">
-      <span class="subcategory-title">Organiser mes déplacements</span>
-      <span class="count">1</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Organiser mes déplacements" title="Supprimer cette sous-catégorie" onclick="removeCategory(3,0)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Organiser mes déplacements" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(3,0)">+</button>
-    </span></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Préparer le code et gagner en autonomie, 2 ateliers" onclick="openSubcategory(3,1)">
-      <span class="subcategory-title">Préparer le code et gagner en autonomie</span>
-      <span class="count">2</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Préparer le code et gagner en autonomie" title="Supprimer cette sous-catégorie" onclick="removeCategory(3,1)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Préparer le code et gagner en autonomie" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(3,1)">+</button>
-    </span></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Partir à l’étranger, 1 ateliers" onclick="openSubcategory(3,2)">
-      <span class="subcategory-title">Partir à l’étranger</span>
-      <span class="count">1</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Partir à l’étranger" title="Supprimer cette sous-catégorie" onclick="removeCategory(3,2)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Partir à l’étranger" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(3,2)">+</button>
-    </span></div></div></section><section class="tile teal" data-block="4"><div class="tile-head">
-      <div class="icon"><svg viewBox="0 0 64 64"><path d="M24 12h16"></path><rect x="18" y="14" width="28" height="38" rx="4"></rect><path d="M26 14v-2a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v2"></path><path d="M24 25h16"></path><path d="M24 32h16"></path><path d="M24 39h10"></path></svg></div>
-      <h2>JE VEUX ÊTRE AIDÉ DANS MES DÉMARCHES</h2>
-      <p class="intro">Offre consolidée démarches : CEJ, droits, logement, budget, compétences de base et numérique.</p>
-    </div><div class="tile-body"><div class="tile-tools for-conseiller"><span class="small-note">3 sous-catégories</span><button class="btn mini editable" type="button" onclick="openCategoryModal(4)">+ Sous-catégorie</button></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Comprendre mes droits et gérer mes démarches, 2 ateliers" onclick="openSubcategory(4,0)">
-      <span class="subcategory-title">Comprendre mes droits et gérer mes démarches</span>
-      <span class="count">2</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Comprendre mes droits et gérer mes démarches" title="Supprimer cette sous-catégorie" onclick="removeCategory(4,0)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Comprendre mes droits et gérer mes démarches" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(4,0)">+</button>
-    </span></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Être aidé pour le logement et le budget, 4 ateliers" onclick="openSubcategory(4,1)">
-      <span class="subcategory-title">Être aidé pour le logement et le budget</span>
-      <span class="count">4</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Être aidé pour le logement et le budget" title="Supprimer cette sous-catégorie" onclick="removeCategory(4,1)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Être aidé pour le logement et le budget" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(4,1)">+</button>
-    </span></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Renforcer mes compétences de base et numériques, 4 ateliers" onclick="openSubcategory(4,2)">
-      <span class="subcategory-title">Renforcer mes compétences de base et numériques</span>
-      <span class="count">4</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Renforcer mes compétences de base et numériques" title="Supprimer cette sous-catégorie" onclick="removeCategory(4,2)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Renforcer mes compétences de base et numériques" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(4,2)">+</button>
-    </span></div></div></section><section class="tile lime open" data-block="5"><div class="tile-head">
-      <div class="icon"><svg viewBox="0 0 64 64"><path d="M32 10l4 11 11 4-11 4-4 11-4-11-11-4 11-4 4-11Z"></path><path d="M46 42l2 6 6 2-6 2-2 6-2-6-6-2 6-2 2-6Z"></path><path d="M16 40l2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5Z"></path></svg></div>
-      <h2>JE VEUX PRENDRE SOIN DE MOI</h2>
-      <p class="intro">Offre consolidée santé et bien-être : prévention, activité physique, confiance et santé-emploi.</p>
-    </div><div class="tile-body"><div class="tile-tools for-conseiller"><span class="small-note">3 sous-catégories</span><button class="btn mini editable" type="button" onclick="openCategoryModal(5)">+ Sous-catégorie</button></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Prendre soin de ma santé et de mon bien-être, 6 ateliers" onclick="openSubcategory(5,0)">
-      <span class="subcategory-title">Prendre soin de ma santé et de mon bien-être</span>
-      <span class="count">6</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Prendre soin de ma santé et de mon bien-être" title="Supprimer cette sous-catégorie" onclick="removeCategory(5,0)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Prendre soin de ma santé et de mon bien-être" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(5,0)">+</button>
-    </span></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Développer ma confiance et gérer mes émotions, 3 ateliers" onclick="openSubcategory(5,1)">
-      <span class="subcategory-title">Développer ma confiance et gérer mes émotions</span>
-      <span class="count">3</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Développer ma confiance et gérer mes émotions" title="Supprimer cette sous-catégorie" onclick="removeCategory(5,1)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Développer ma confiance et gérer mes émotions" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(5,1)">+</button>
-    </span></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Prévenir les risques et adapter mon projet à ma santé, 2 ateliers" onclick="openSubcategory(5,2)">
-      <span class="subcategory-title">Prévenir les risques et adapter mon projet à ma santé</span>
-      <span class="count">2</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Prévenir les risques et adapter mon projet à ma santé" title="Supprimer cette sous-catégorie" onclick="removeCategory(5,2)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Prévenir les risques et adapter mon projet à ma santé" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(5,2)">+</button>
-    </span></div></div></section><section class="tile aqua open" data-block="6"><div class="tile-head">
-      <div class="icon"><svg viewBox="0 0 64 64"><path d="M23 30V17a3 3 0 1 1 6 0v11"></path><path d="M29 28V14a3 3 0 1 1 6 0v14"></path><path d="M35 28V17a3 3 0 1 1 6 0v16"></path><path d="M23 28c-2-3-6-2-7 1-1 3 1 6 3 8l8 10c2 2 4 3 7 3h7c3 0 6-2 7-5l3-10c1-3-1-7-5-7-1 0-2 .2-3 .7"></path></svg></div>
-      <h2>JE VEUX M’ENGAGER</h2>
-      <p class="intro">Offre consolidée engagement : bénévolat, citoyenneté, culture, transition écologique et projets collectifs.</p>
-    </div><div class="tile-body"><div class="tile-tools for-conseiller"><span class="small-note">2 sous-catégories</span><button class="btn mini editable" type="button" onclick="openCategoryModal(6)">+ Sous-catégorie</button></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Découvrir le bénévolat et trouver une mission, 2 ateliers" onclick="openSubcategory(6,0)">
-      <span class="subcategory-title">Découvrir le bénévolat et trouver une mission</span>
-      <span class="count">2</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Découvrir le bénévolat et trouver une mission" title="Supprimer cette sous-catégorie" onclick="removeCategory(6,0)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Découvrir le bénévolat et trouver une mission" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(6,0)">+</button>
-    </span></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Participer à un projet collectif ou citoyen, 3 ateliers" onclick="openSubcategory(6,1)">
-      <span class="subcategory-title">Participer à un projet collectif ou citoyen</span>
-      <span class="count">3</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Participer à un projet collectif ou citoyen" title="Supprimer cette sous-catégorie" onclick="removeCategory(6,1)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Participer à un projet collectif ou citoyen" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(6,1)">+</button>
-    </span></div></div></section><section class="tile grey" data-block="7"><div class="tile-head">
-      <div class="icon"><svg viewBox="0 0 64 64"><circle cx="18" cy="18" r="5"></circle><circle cx="46" cy="18" r="5"></circle><circle cx="32" cy="46" r="5"></circle><path d="M22 20l20 0"></path><path d="M20 22l9 18"></path><path d="M44 22l-9 18"></path></svg></div>
-      <h2>OFFRE EXTERNE</h2>
-      <p class="intro">Vue transversale des interventions portées ou coanimées par des partenaires. Chaque offre reste également reliée au besoin principal du jeune.</p>
-    </div><div class="tile-body"><div class="tile-tools for-conseiller"><span class="small-note">3 sous-catégories</span><button class="btn mini editable" type="button" onclick="openCategoryModal(7)">+ Sous-catégorie</button></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Découvrir un métier et construire mon projet, 4 ateliers" onclick="openSubcategory(7,0)">
-      <span class="subcategory-title">Découvrir un métier et construire mon projet</span>
-      <span class="count">4</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Découvrir un métier et construire mon projet" title="Supprimer cette sous-catégorie" onclick="removeCategory(7,0)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Découvrir un métier et construire mon projet" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(7,0)">+</button>
-    </span></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Renforcer ma confiance et préparer mon entretien, 4 ateliers" onclick="openSubcategory(7,1)">
-      <span class="subcategory-title">Renforcer ma confiance et préparer mon entretien</span>
-      <span class="count">4</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Renforcer ma confiance et préparer mon entretien" title="Supprimer cette sous-catégorie" onclick="removeCategory(7,1)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Renforcer ma confiance et préparer mon entretien" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(7,1)">+</button>
-    </span></div><div class="subcategory">
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie Développer mon autonomie, 5 ateliers" onclick="openSubcategory(7,2)">
-      <span class="subcategory-title">Développer mon autonomie</span>
-      <span class="count">5</span>
-    </button>
-    <span class="subcategory-actions">
-      <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer la sous-catégorie Développer mon autonomie" title="Supprimer cette sous-catégorie" onclick="removeCategory(7,2)">−</button>
-      <button class="icon-action" type="button" aria-label="Ouvrir la sous-catégorie Développer mon autonomie" title="Ouvrir cette sous-catégorie" onclick="openSubcategory(7,2)">+</button>
-    </span></div></div></section></div>
+    <div id="mindmap" class="mindmap-grid"></div>
   </main>
 
   <input id="importFile" class="file-input" type="file" accept=".json" onchange="importData(event)">
 
   <div id="toastStack" aria-live="polite" aria-atomic="true"></div>
 
-  <div id="modal" class="modal" onclick="if(event.target.id===&#39;modal&#39;) closeModal()">
-    <div class="modal-box">
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="if(event.target.id===&#39;modal&#39;) closeModal()">
+    <div class="modal-box" tabindex="-1">
       <div class="modal-head">
         <h3 id="modalTitle">Participer à un projet collectif ou citoyen</h3>
         <button class="btn" type="button" onclick="closeModal()">Fermer</button>
       </div>
-      <div id="modalContent" class="modal-content">
-    <div class="category-view-tools">
-      <span><b>3</b> ateliers pour le territoire sélectionné</span>
-      <div class="for-conseiller" style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="icon-action editable" type="button" aria-label="Ajouter un atelier" title="Ajouter un atelier" onclick="openAtelierModal(6,1)">+</button>
-        <button class="icon-action danger editable" type="button" aria-label="Supprimer la sous-catégorie Participer à un projet collectif ou citoyen" title="Supprimer cette sous-catégorie" onclick="removeCategory(6,1)">−</button>
-      </div>
-    </div>
-    <div class="category-workshops"><details class="atelier" data-atelier-index="2">
-    <summary>
-      <div class="atelier-head">
-        <div class="atelier-title">Cité éducative – projets QPV</div>
-        <span class="demand-badge zero" title="Demandes d’inscription en attente">0</span>
-      </div>
-      <div class="atelier-summary-actions">
-        <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer l’atelier Cité éducative – projets QPV" title="Supprimer cet atelier" onclick="event.preventDefault();event.stopPropagation();removeAtelier(6,2)">−</button>
-        <button class="icon-action atelier-toggle" type="button" aria-label="Afficher l’atelier Cité éducative – projets QPV" title="Afficher ou réduire cet atelier" onclick="event.preventDefault();event.stopPropagation();toggleAtelier(this)">+</button>
-      </div>
-    </summary>
-    <div class="atelier-content">
-      <div class="inscription-wrap for-jeune">
-        <button class="btn mini inscription" type="button" onclick="event.preventDefault(); event.stopPropagation(); openRegisterModal(6,2)">M’inscrire</button>
-      </div>
-      
-      
-      <fieldset class="atelier-territories for-conseiller">
-        <legend class="atelier-territories-title">Territoires proposés</legend>
-        <div class="atelier-territories-list">
-          <label class="atelier-territory"><input type="checkbox" checked="" onchange="toggleAtelierTerritory(6,2,&#39;bab-nord&#39;,this)"> BAB Nord</label><label class="atelier-territory"><input type="checkbox" onchange="toggleAtelierTerritory(6,2,&#39;bab-sud&#39;,this)"> BAB Sud</label><label class="atelier-territory"><input type="checkbox" onchange="toggleAtelierTerritory(6,2,&#39;sud-pb&#39;,this)"> Sud Pays Basque</label><label class="atelier-territory"><input type="checkbox" onchange="toggleAtelierTerritory(6,2,&#39;pbi&#39;,this)"> Pays Basque Intérieur</label>
-        </div>
-      </fieldset>
-      <div class="atelier-tools editable for-conseiller" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:2px;margin-bottom:10px;">
-        <button class="btn mini" onclick="editAtelier(6,2)">Modifier</button>
-        <button class="btn mini" onclick="openRequestsModal(6,2)">Demandes </button>
-        <button class="btn mini" onclick="removeAtelier(6,2)">Supprimer</button>
-      </div>
-      
-    <details class="resource-wrap">
-      <summary>
-        <h4>Sessions / calendrier</h4>
-        <div class="summary-right">
-          <span class="count">0</span>
-          <button class="btn mini editable" type="button" onclick="event.preventDefault(); event.stopPropagation(); openSessionModal(6,2)">+ Ajouter</button>
-          <span class="summary-toggle">+</span>
-        </div>
-      </summary>
-      <div class="resource-body">
-        <div class="management-hint">Passe en entrée conseiller pour créer des sessions, gérer le calendrier et suivre les participants.</div>
-        <div class="empty-note">Aucune session renseignée pour le moment.</div>
-      </div>
-    </details>
-  
-    </div>
-  </details><details class="atelier" data-atelier-index="3">
-    <summary>
-      <div class="atelier-head">
-        <div class="atelier-title">Les rendez-vous du 7 bis</div>
-        <span class="demand-badge zero" title="Demandes d’inscription en attente">0</span>
-      </div>
-      <div class="atelier-summary-actions">
-        <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer l’atelier Les rendez-vous du 7 bis" title="Supprimer cet atelier" onclick="event.preventDefault();event.stopPropagation();removeAtelier(6,3)">−</button>
-        <button class="icon-action atelier-toggle" type="button" aria-label="Afficher l’atelier Les rendez-vous du 7 bis" title="Afficher ou réduire cet atelier" onclick="event.preventDefault();event.stopPropagation();toggleAtelier(this)">+</button>
-      </div>
-    </summary>
-    <div class="atelier-content">
-      <div class="inscription-wrap for-jeune">
-        <button class="btn mini inscription" type="button" onclick="event.preventDefault(); event.stopPropagation(); openRegisterModal(6,3)">M’inscrire</button>
-      </div>
-      
-      
-      <fieldset class="atelier-territories for-conseiller">
-        <legend class="atelier-territories-title">Territoires proposés</legend>
-        <div class="atelier-territories-list">
-          <label class="atelier-territory"><input type="checkbox" checked="" onchange="toggleAtelierTerritory(6,3,&#39;bab-nord&#39;,this)"> BAB Nord</label><label class="atelier-territory"><input type="checkbox" onchange="toggleAtelierTerritory(6,3,&#39;bab-sud&#39;,this)"> BAB Sud</label><label class="atelier-territory"><input type="checkbox" onchange="toggleAtelierTerritory(6,3,&#39;sud-pb&#39;,this)"> Sud Pays Basque</label><label class="atelier-territory"><input type="checkbox" onchange="toggleAtelierTerritory(6,3,&#39;pbi&#39;,this)"> Pays Basque Intérieur</label>
-        </div>
-      </fieldset>
-      <div class="atelier-tools editable for-conseiller" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:2px;margin-bottom:10px;">
-        <button class="btn mini" onclick="editAtelier(6,3)">Modifier</button>
-        <button class="btn mini" onclick="openRequestsModal(6,3)">Demandes </button>
-        <button class="btn mini" onclick="removeAtelier(6,3)">Supprimer</button>
-      </div>
-      
-    <details class="resource-wrap">
-      <summary>
-        <h4>Sessions / calendrier</h4>
-        <div class="summary-right">
-          <span class="count">0</span>
-          <button class="btn mini editable" type="button" onclick="event.preventDefault(); event.stopPropagation(); openSessionModal(6,3)">+ Ajouter</button>
-          <span class="summary-toggle">+</span>
-        </div>
-      </summary>
-      <div class="resource-body">
-        <div class="management-hint">Passe en entrée conseiller pour créer des sessions, gérer le calendrier et suivre les participants.</div>
-        <div class="empty-note">Aucune session renseignée pour le moment.</div>
-      </div>
-    </details>
-  
-    </div>
-  </details><details class="atelier" data-atelier-index="4">
-    <summary>
-      <div class="atelier-head">
-        <div class="atelier-title">Atelier culture</div>
-        <span class="demand-badge zero" title="Demandes d’inscription en attente">0</span>
-      </div>
-      <div class="atelier-summary-actions">
-        <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer l’atelier Atelier culture" title="Supprimer cet atelier" onclick="event.preventDefault();event.stopPropagation();removeAtelier(6,4)">−</button>
-        <button class="icon-action atelier-toggle" type="button" aria-label="Afficher l’atelier Atelier culture" title="Afficher ou réduire cet atelier" onclick="event.preventDefault();event.stopPropagation();toggleAtelier(this)">+</button>
-      </div>
-    </summary>
-    <div class="atelier-content">
-      <div class="inscription-wrap for-jeune">
-        <button class="btn mini inscription" type="button" onclick="event.preventDefault(); event.stopPropagation(); openRegisterModal(6,4)">M’inscrire</button>
-      </div>
-      
-      
-      <fieldset class="atelier-territories for-conseiller">
-        <legend class="atelier-territories-title">Territoires proposés</legend>
-        <div class="atelier-territories-list">
-          <label class="atelier-territory"><input type="checkbox" onchange="toggleAtelierTerritory(6,4,&#39;bab-nord&#39;,this)"> BAB Nord</label><label class="atelier-territory"><input type="checkbox" onchange="toggleAtelierTerritory(6,4,&#39;bab-sud&#39;,this)"> BAB Sud</label><label class="atelier-territory"><input type="checkbox" checked="" onchange="toggleAtelierTerritory(6,4,&#39;sud-pb&#39;,this)"> Sud Pays Basque</label><label class="atelier-territory"><input type="checkbox" onchange="toggleAtelierTerritory(6,4,&#39;pbi&#39;,this)"> Pays Basque Intérieur</label>
-        </div>
-      </fieldset>
-      <div class="atelier-tools editable for-conseiller" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:2px;margin-bottom:10px;">
-        <button class="btn mini" onclick="editAtelier(6,4)">Modifier</button>
-        <button class="btn mini" onclick="openRequestsModal(6,4)">Demandes </button>
-        <button class="btn mini" onclick="removeAtelier(6,4)">Supprimer</button>
-      </div>
-      
-    <details class="resource-wrap">
-      <summary>
-        <h4>Sessions / calendrier</h4>
-        <div class="summary-right">
-          <span class="count">0</span>
-          <button class="btn mini editable" type="button" onclick="event.preventDefault(); event.stopPropagation(); openSessionModal(6,4)">+ Ajouter</button>
-          <span class="summary-toggle">+</span>
-        </div>
-      </summary>
-      <div class="resource-body">
-        <div class="management-hint">Passe en entrée conseiller pour créer des sessions, gérer le calendrier et suivre les participants.</div>
-        <div class="empty-note">Aucune session renseignée pour le moment.</div>
-      </div>
-    </details>
-  
-    </div>
-  </details></div></div>
+      <div id="modalContent" class="modal-content"></div>
     </div>
   </div>
 
 <script>
-const STORAGE_KEY = 'mlpb_offre_collective_v14_ml_skills';
+const STORAGE_KEY = 'mlpb_offre_collective_v29';
 
 /* ====== Accès administrateur (toi seul) ======
    Les fonctions liées à GitHub (jeton, dépôt, publication) ne doivent être
@@ -1325,24 +980,14 @@ const STORAGE_KEY = 'mlpb_offre_collective_v14_ml_skills';
    seul connais. Une fois ouvert une fois sur un appareil/navigateur donné,
    il reste mémorisé — pas besoin de le retaper à chaque fois.
    Pour changer le mot de passe du lien, remplace la valeur ci-dessous. */
-const ADMIN_ACCESS_KEY = 'mat-9247-admin';
-const ADMIN_FLAG_KEY = 'mlpb_offre_collective_admin_flag';
 function isAdminUser(){
-  try{
-    const params = new URLSearchParams(location.search);
-    if(params.get('admin') === ADMIN_ACCESS_KEY){
-      localStorage.setItem(ADMIN_FLAG_KEY, '1');
-      return true;
-    }
-    return localStorage.getItem(ADMIN_FLAG_KEY) === '1';
-  }catch(e){ return false; }
+  return false;
 }
 function applyAdminVisibility(){
-  const admin = isAdminUser();
   const publishBtn = document.getElementById('publishGithubBtn');
   const settingsBtn = document.getElementById('githubSettingsBtn');
-  if(publishBtn) publishBtn.style.display = admin ? '' : 'none';
-  if(settingsBtn) settingsBtn.style.display = admin ? '' : 'none';
+  if(publishBtn) publishBtn.hidden = true;
+  if(settingsBtn) settingsBtn.hidden = true;
 }
 
 const defaultData = {
@@ -1870,7 +1515,7 @@ function parseFrenchDate(str){
   let [,d,mo,y] = m;
   if(y.length===2) y = '20'+y;
   const date = new Date(Number(y), Number(mo)-1, Number(d));
-  return isNaN(date.getTime()) ? null : date;
+  return isNaN(date.getTime()) || date.getFullYear()!==Number(y) || date.getMonth()!==Number(mo)-1 || date.getDate()!==Number(d) ? null : date;
 }
 
 function collectAllSessions(){
@@ -1948,6 +1593,29 @@ function csvEscape(value){
   return /[";\n]/.test(str) ? '"' + str.replace(/"/g,'""') + '"' : str;
 }
 
+function exportAtelierSessionsCSV(bi, ai){
+  const atelier = getAtelier(bi, ai);
+  if(!atelier) return;
+  const header = ['Atelier','Date','Lieu','Horaire','Inscrits'];
+  const lines = [header.join(';')];
+  const sessions = atelier.sessions||[];
+  if(!sessions.length){
+    lines.push([atelier.title, '', '', '', 0].map(csvEscape).join(';'));
+  } else {
+    sessions.forEach(s=>{
+      lines.push([atelier.title, s.date||'', s.lieu||'', s.horaire||'', (s.inscrits||0)].map(csvEscape).join(';'));
+    });
+  }
+  const blob = new Blob(['\uFEFF' + lines.join('\n')], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `sessions_${atelier.title.replace(/[^a-z0-9]+/gi,'_').slice(0,40)}_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+  showToast('Export terminé.','success');
+}
+
 function exportStatsCSV(){
   const header = ['Categorie','Sous-categorie','Atelier','Date','Lieu','Horaire','Inscrits'];
   const lines = [header.join(';')];
@@ -1983,7 +1651,6 @@ function openIdeaModal(){
     <div class="modal-grid">
       <div class="full"><label for="mIdeaTitle">Titre de l’idée</label><input id="mIdeaTitle" placeholder="Ex. Atelier sur la prise de parole"></div>
       <div class="full"><label for="mIdeaDesc">Description (optionnel)</label><textarea id="mIdeaDesc" placeholder="Explique ton idée..."></textarea></div>
-      <div class="full"><label for="mIdeaContact">Ton prénom (optionnel)</label><input id="mIdeaContact" placeholder="Pour qu’on puisse te recontacter si besoin"></div>
     </div>
     <div class="actions">
       <button class="btn primary" type="button" onclick="confirmSubmitIdea()">${icon('bulb','icon-svg-sm')} Envoyer mon idée</button>
@@ -1992,21 +1659,27 @@ function openIdeaModal(){
   openModal();
 }
 
-function confirmSubmitIdea(){
+async function confirmSubmitIdea(){
   const title = valueOf('mIdeaTitle').trim();
   if(!title){ showToast('Le titre de l’idée est obligatoire.','warning'); return; }
-  if(!Array.isArray(appData.ideesAteliers)) appData.ideesAteliers = [];
-  appData.ideesAteliers.unshift({
+  const idea = {
     title,
     description: valueOf('mIdeaDesc').trim(),
-    contact: valueOf('mIdeaContact').trim(),
     date: new Date().toISOString(),
     traitee: false
-  });
-  saveData();
-  closeModal();
-  showToast('Merci ! Ton idée a bien été envoyée.','success');
-  updateIdeasBadge();
+  };
+  setSaveStatus('Envoi…');
+  const sent = await postPublicAction('submitIdea', {idea});
+  if(sent){
+    if(!Array.isArray(appData.ideesAteliers)) appData.ideesAteliers = [];
+    appData.ideesAteliers.unshift(idea);
+    saveData();
+    closeModal();
+    showToast('Merci ! Ton idée a bien été transmise.','success');
+    updateIdeasBadge();
+  }else{
+    showToast('Envoi impossible. Ton idée reste enregistrée sur cet appareil : réessaie plus tard.','danger');
+  }
 }
 
 function openIdeasReviewModal(){
@@ -2203,7 +1876,6 @@ function render(){
     head.innerHTML = `
       <div class="icon">${iconSvg(block.icon)}</div>
       <h2>${BLOCK_EMOJI[block.id] ? `<span class="tile-emoji" aria-hidden="true">${BLOCK_EMOJI[block.id]}</span>` : ''}${escapeHtml(displayTitle(block))}</h2>
-      ${document.body.classList.contains('mode-conseiller') ? '' : `<p class="intro">${escapeHtml(block.introJeune)}</p>`}
     `;
     head.onclick = ()=> tile.classList.toggle('open');
     tile.appendChild(head);
@@ -2303,7 +1975,7 @@ function renderAtelier(block, atelier, bi, ai){
         ${atelier.intervenant ? `<span class="fiche-chip">${escapeHtml(atelier.intervenant)}</span>` : ''}
         ${atelier.prerequis ? `<span class="fiche-chip">Prérequis : ${escapeHtml(atelier.prerequis)}</span>` : ''}
       </div>` : ''}
-      ${atelier.lien ? `<div class="atelier-resource-link"><a class="btn mini primary" href="${escAttr(atelier.lien)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${icon('link','icon-svg-sm')} Ouvrir le module</a></div>` : ''}
+      ${safeUrl(atelier.lien) ? `<div class="atelier-resource-link"><a class="btn mini primary" href="${escAttr(safeUrl(atelier.lien))}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${icon('link','icon-svg-sm')} Ouvrir le module</a></div>` : ''}
       ${(atelier.contenu || []).length ? `<ul class="bullets">${atelier.contenu.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>` : ''}
       <fieldset class="atelier-territories for-conseiller">
         <legend class="atelier-territories-title">Territoires proposés</legend>
@@ -2315,6 +1987,7 @@ function renderAtelier(block, atelier, bi, ai){
         <button class="btn mini subtle" onclick="editAtelier(${bi},${ai})">${icon('pencil','icon-svg-sm')} Modifier</button>
         <button class="btn mini ${hasFiche ? 'subtle' : 'primary'}" onclick="openFicheModal(${bi},${ai})">${icon('file','icon-svg-sm')} ${hasFiche ? 'Fiche technique' : '+ Ajouter une fiche technique'}</button>
         <button class="btn mini subtle" onclick="openAvisReviewModal(${bi},${ai})">${icon('star','icon-svg-sm')} Avis reçus${avisCount ? ` (${avisCount})` : ''}</button>
+        <button class="btn mini subtle" onclick="exportAtelierSessionsCSV(${bi},${ai})" title="Exporter les sessions de cet atelier en CSV">${icon('download','icon-svg-sm')} Exporter les sessions</button>
         <button class="btn mini danger-outline" style="margin-left:auto" onclick="removeAtelier(${bi},${ai})">${icon('trash','icon-svg-sm')} Supprimer</button>
       </div>
       ${renderSessions(atelier, bi, ai)}
@@ -2409,21 +2082,28 @@ function setRatingValue(n){
   });
 }
 
-function confirmSubmitRating(bi, ai, si){
+async function confirmSubmitRating(bi, ai, si){
   if(!__ratingValue){ showToast('Choisis une note de 1 à 5 étoiles.','warning'); return; }
   const atelier = getAtelier(bi, ai);
   const session = atelier.sessions[si];
-  session.avis = session.avis || [];
-  session.avis.push({
+  const avis = {
     note: __ratingValue,
     commentaire: valueOf('mAvisComment').trim(),
     date: new Date().toISOString()
-  });
-  try{ localStorage.setItem(sessionRatingKey(atelier, session), '1'); }catch(e){}
-  saveData();
-  closeModal();
-  showToast('Merci pour ton avis !','success');
-  refreshAndOpenAtelier(bi,ai);
+  };
+  setSaveStatus('Envoi…');
+  const sent = await postPublicAction('submitRating', {bi, ai, si, avis});
+  if(sent){
+    session.avis = session.avis || [];
+    session.avis.push(avis);
+    try{ localStorage.setItem(sessionRatingKey(atelier, session), '1'); }catch(e){}
+    saveData();
+    closeModal();
+    showToast('Merci ! Ton avis a bien été transmis.','success');
+    refreshAndOpenAtelier(bi,ai);
+  }else{
+    showToast('Envoi impossible. Ton avis reste enregistré sur cet appareil : réessaie plus tard.','danger');
+  }
 }
 
 function openAvisReviewModal(bi, ai){
@@ -2519,8 +2199,8 @@ function renderSessions(atelier, bi, ai){
             </div>
             <span class="inscrits-number for-jeune">${inscrits} inscrit${inscrits>1?'s':''}</span>
           </div>
-          ${s.inscription
-            ? `<a class="btn mini primary" href="${escAttr(s.inscription)}" target="_blank" rel="noopener">${icon('link','icon-svg-sm')} S’inscrire sur linscription.com</a>`
+          ${safeUrl(s.inscription)
+            ? `<a class="btn mini primary" href="${escAttr(safeUrl(s.inscription))}" target="_blank" rel="noopener">${icon('link','icon-svg-sm')} S’inscrire sur linscription.com</a>`
             : `<span class="small-note for-jeune">Lien d’inscription à venir</span><span class="small-note for-conseiller">Renseigne le lien linscription.com ci-dessus pour l’afficher aux jeunes.</span>`}
         </div>
         <div class="avis-row">
@@ -2975,11 +2655,31 @@ function setSaveStatus(text){
   if(el) el.textContent = text;
 }
 
-async function saveToSharedSheet(){
+async function postPublicAction(action, payload){
+  if(!GOOGLE_SHEET_ENDPOINT) return false;
+  try{
+    const res = await fetch(GOOGLE_SHEET_ENDPOINT, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({action, payload})
+    });
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const result = await res.json();
+    if(!result.ok) throw new Error(result.error || 'Échec');
+    setSaveStatus('À jour');
+    return true;
+  }catch(err){
+    setSaveStatus('Hors connexion');
+    return false;
+  }
+}
+
+async function saveToSharedSheet(options){
+  options = options || {};
   saveData();
   if(!GOOGLE_SHEET_ENDPOINT){
-    showToast('Enregistré sur cet appareil.','success');
-    return;
+    if(!options.silentSuccess) showToast('Enregistré sur cet appareil uniquement.','warning');
+    return false;
   }
   setSaveStatus('Enregistrement…');
   try{
@@ -2993,10 +2693,12 @@ async function saveToSharedSheet(){
     logChange('sauvegarde', 'Données enregistrées et partagées avec l’équipe');
     saveData();
     setSaveStatus('Enregistré à ' + new Date().toLocaleTimeString('fr-FR').slice(0,5));
-    showToast('Enregistré — visible par toute l’équipe.','success');
+    if(!options.silentSuccess) showToast('Enregistré — visible par toute l’équipe.','success');
+    return true;
   }catch(err){
     setSaveStatus('');
     showToast('Connexion impossible : tes modifications restent enregistrées sur cet appareil.','danger');
+    return false;
   }
 }
 
@@ -3004,12 +2706,12 @@ async function loadSharedData(){
   if(!GOOGLE_SHEET_ENDPOINT) return;
   try{
     const res = await fetch(GOOGLE_SHEET_ENDPOINT);
-    if(!res.ok) return;
+    if(!res.ok) throw new Error('HTTP '+res.status);
     const raw = (await res.text()).trim();
-    if(!raw || raw === '{}') return;
+    if(!raw || raw === '{}') throw new Error('Réponse vide');
     const text = await decompressFromStorage(raw);
     const data = JSON.parse(text);
-    if(!data.blocks) return;
+    if(!data.blocks) throw new Error('Données invalides');
     if(!Array.isArray(data.log)) data.log = [];
     if(!Array.isArray(data.ideesAteliers)) data.ideesAteliers = [];
     const migrated = migratePrivacyData(data);
@@ -3028,7 +2730,8 @@ async function loadSharedData(){
       showToast('Des données nominatives ont été retirées automatiquement (RGPD).','success');
     }
   }catch(err){
-    /* échec silencieux : on garde la version locale, pas d’interruption pour l’utilisateur */
+    setSaveStatus('Hors connexion');
+    showToast('Données partagées indisponibles : affichage de la copie enregistrée sur cet appareil.','warning');
   }
 }
 
@@ -3041,133 +2744,6 @@ function exportData(){
   a.download = `offre_collective_mlpb_${stamp}.json`;
   document.body.appendChild(a); a.click(); a.remove();
   URL.revokeObjectURL(url);
-}
-
-/* ====== Publication directe vers GitHub (Contents API) ======
-   Le jeton d'accès personnel n'est JAMAIS inclus dans appData, donc jamais
-   dans les exports JSON ni dans le journal : il vit dans une clé de
-   localStorage séparée, propre à ce navigateur. */
-const GITHUB_CONFIG_KEY = 'mlpb_offre_collective_github_config';
-const GITHUB_TOKEN_KEY = 'mlpb_offre_collective_github_token';
-
-function getGithubConfig(){
-  try{ return JSON.parse(localStorage.getItem(GITHUB_CONFIG_KEY) || '{}'); }
-  catch(e){ return {}; }
-}
-function getGithubToken(){
-  return localStorage.getItem(GITHUB_TOKEN_KEY) || '';
-}
-function utf8ToBase64(str){
-  return btoa(unescape(encodeURIComponent(str)));
-}
-
-function openGithubSettingsModal(afterSave){
-  if(!isAdminUser()){ showToast('Fonction réservée à l’administrateur de l’outil.','warning'); return; }
-  const cfg = getGithubConfig();
-  const hasToken = !!getGithubToken();
-  useStandardModal();
-  document.getElementById('modalTitle').textContent = 'Paramètres GitHub';
-  document.getElementById('modalContent').innerHTML = `
-    <p class="small-note" style="margin-bottom:10px;">
-      Ces informations permettent au bouton « Publier sur GitHub » d’écrire directement un fichier de données dans ton dépôt, via l’API GitHub. Elles restent enregistrées uniquement dans ce navigateur — jamais dans les exports JSON ni dans le journal.
-    </p>
-    <div class="modal-grid">
-      <div><label for="ghOwner">Compte / organisation</label><input id="ghOwner" value="${escAttr(cfg.owner||'')}" placeholder="Ex. mlpb-tools"></div>
-      <div><label for="ghRepo">Dépôt</label><input id="ghRepo" value="${escAttr(cfg.repo||'')}" placeholder="Ex. offre-collective"></div>
-      <div><label for="ghBranch">Branche</label><input id="ghBranch" value="${escAttr(cfg.branch||'main')}" placeholder="main"></div>
-      <div class="full"><label for="ghPath">Chemin du fichier de données</label><input id="ghPath" value="${escAttr(cfg.path||'data/offre-collective-data.json')}" placeholder="data/offre-collective-data.json"></div>
-      <div class="full">
-        <label for="ghToken">Jeton d’accès personnel GitHub</label>
-        <input id="ghToken" type="password" placeholder="${hasToken ? 'Déjà enregistré — laisse vide pour le conserver' : 'ghp_… ou github_pat_…'}">
-        <span class="field-help">Crée un jeton à granularité fine limité à ce seul dépôt, avec la permission « Contents : Read and write ». Ne le partage jamais.</span>
-      </div>
-    </div>
-    <div class="actions">
-      <button class="btn primary" type="button" onclick="saveGithubSettings(${afterSave ? 'true' : 'false'})">${icon('check','icon-svg-sm')} Enregistrer</button>
-      ${hasToken ? `<button class="btn danger-outline" type="button" onclick="forgetGithubToken()">${icon('trash','icon-svg-sm')} Oublier le jeton</button>` : ''}
-      <button class="btn" type="button" onclick="closeModal()">Annuler</button>
-    </div>`;
-  openModal();
-  window.__ghAfterSave = afterSave || null;
-}
-
-function saveGithubSettings(shouldPublishAfter){
-  const owner = valueOf('ghOwner').trim();
-  const repo = valueOf('ghRepo').trim();
-  const branch = valueOf('ghBranch').trim() || 'main';
-  const path = valueOf('ghPath').trim();
-  if(!owner || !repo || !path){ showToast('Compte, dépôt et chemin du fichier sont obligatoires.','warning'); return; }
-  localStorage.setItem(GITHUB_CONFIG_KEY, JSON.stringify({owner, repo, branch, path}));
-  const tokenValue = valueOf('ghToken').trim();
-  if(tokenValue) localStorage.setItem(GITHUB_TOKEN_KEY, tokenValue);
-  closeModal();
-  showToast('Paramètres GitHub enregistrés.','success');
-  if(shouldPublishAfter && window.__ghAfterSave){ window.__ghAfterSave(); }
-  window.__ghAfterSave = null;
-}
-
-function forgetGithubToken(){
-  localStorage.removeItem(GITHUB_TOKEN_KEY);
-  showToast('Jeton GitHub oublié.','success');
-  openGithubSettingsModal();
-}
-
-async function publishToGithub(){
-  if(!isAdminUser()){ showToast('Fonction réservée à l’administrateur de l’outil.','warning'); return; }
-  const cfg = getGithubConfig();
-  const token = getGithubToken();
-  if(!cfg.owner || !cfg.repo || !cfg.path || !token){
-    openGithubSettingsModal(() => publishToGithub());
-    return;
-  }
-  const apiUrl = `https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}/contents/${cfg.path.split('/').map(encodeURIComponent).join('/')}`;
-  const branch = cfg.branch || 'main';
-  showToast('Publication en cours…','warning');
-  try{
-    let sha;
-    const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`, {
-      headers:{ 'Authorization':`Bearer ${token}`, 'Accept':'application/vnd.github+json' }
-    });
-    if(getRes.status === 200){
-      const info = await getRes.json();
-      sha = info.sha;
-    } else if(getRes.status !== 404){
-      throw new Error(`Lecture impossible (HTTP ${getRes.status})`);
-    }
-
-    const stamp = new Date().toLocaleString('fr-FR');
-    const body = {
-      message:`Mise à jour des données — ${stamp}`,
-      content:utf8ToBase64(JSON.stringify(appData, null, 2)),
-      branch
-    };
-    if(sha) body.sha = sha;
-
-    const putRes = await fetch(apiUrl, {
-      method:'PUT',
-      headers:{ 'Authorization':`Bearer ${token}`, 'Accept':'application/vnd.github+json', 'Content-Type':'application/json' },
-      body:JSON.stringify(body)
-    });
-
-    if(putRes.status === 200 || putRes.status === 201){
-      logChange('publication', `Fichier « ${cfg.path} » publié sur ${cfg.owner}/${cfg.repo}@${branch}`);
-      saveData();
-      showToast('Données publiées sur GitHub.','success');
-    } else if(putRes.status === 401){
-      showToast('Jeton invalide ou expiré — vérifie les paramètres GitHub.','danger');
-    } else if(putRes.status === 403){
-      showToast('Droits insuffisants sur ce dépôt pour ce jeton.','danger');
-    } else if(putRes.status === 404){
-      showToast('Dépôt introuvable — vérifie compte/dépôt dans les paramètres.','danger');
-    } else if(putRes.status === 409){
-      showToast('Conflit : quelqu’un a modifié le fichier entre-temps. Réessaie.','danger');
-    } else {
-      const info = await putRes.json().catch(() => ({}));
-      showToast(`Échec de la publication (HTTP ${putRes.status})${info.message ? ' — ' + info.message : ''}`,'danger');
-    }
-  }catch(err){
-    showToast('Publication impossible : connexion ou configuration GitHub à vérifier.','danger');
-  }
 }
 
 function importData(event){
@@ -3245,12 +2821,26 @@ function escapeHtml(str){
 function escAttr(str){
   return escapeHtml(str).replace(/\n/g,'&#10;');
 }
+function safeUrl(value){
+  if(!value) return '';
+  try{
+    const url = new URL(String(value).trim(), location.href);
+    return url.protocol === 'https:' ? url.href : '';
+  }catch(e){ return ''; }
+}
 function valueOf(id){
   const el = document.getElementById(id);
   return el ? el.value : '';
 }
+let modalReturnFocus = null;
 function openModal(){
-  document.getElementById('modal').classList.add('open');
+  modalReturnFocus = document.activeElement;
+  const modal = document.getElementById('modal');
+  modal.classList.add('open');
+  requestAnimationFrame(()=>{
+    const first = modal.querySelector('input, select, textarea, button, [href], [tabindex]:not([tabindex="-1"])');
+    (first || modal.querySelector('.modal-box'))?.focus();
+  });
 }
 function useStandardModal(){
   document.querySelector('.modal-box').classList.remove('category-view','workshop-form-view');
@@ -3258,7 +2848,12 @@ function useStandardModal(){
 function closeModal(){
   document.getElementById('modal').classList.remove('open');
   useStandardModal();
+  if(modalReturnFocus && document.contains(modalReturnFocus)) modalReturnFocus.focus();
+  modalReturnFocus = null;
 }
+document.addEventListener('keydown', event=>{
+  if(event.key === 'Escape' && document.getElementById('modal').classList.contains('open')) closeModal();
+});
 function refreshAndReopen(bi, ai){
   saveData();
   render();
