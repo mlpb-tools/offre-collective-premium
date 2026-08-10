@@ -952,6 +952,13 @@
   .tile-emoji{display:inline-block;font-size:20px;line-height:1;margin-right:6px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.12));}
   .tile .intro{font-weight:500 !important;}
 
+  /* Accueil desktop : cartes légèrement plus compactes pour garder les 8 axes visibles. */
+  @media(min-width:1201px){
+    .mindmap-grid .tile:not(.open){min-height:225px;padding:22px 16px 14px !important;}
+    .mindmap-grid .tile:not(.open) .tile-head{min-height:178px;gap:7px;}
+    .mindmap-grid .tile:not(.open) .icon{width:48px;height:48px;}
+  }
+
   /* ====== Boutons : pilules à bordure noire et ombre dure ====== */
   .btn,.btn.mini{border-radius:999px !important;}
   .segmented,.segmented button{border-radius:999px !important;}
@@ -2209,7 +2216,7 @@ function renderAtelier(block, atelier, bi, ai){
   const allAvis = (atelier.sessions || []).flatMap(s => s.avis || []);
   const avisCount = allAvis.length;
   const avisAverage = avisCount ? allAvis.reduce((sum,a)=>sum+(a.note||0),0) / avisCount : 0;
-  const hasFiche = !!(atelier.duree || atelier.format || atelier.places || atelier.intervenant || atelier.prerequis);
+  const hasFiche = !!(atelier.duree || atelier.format || atelier.places || atelier.intervenant || atelier.prerequis || atelier.ficheRessourceUrl);
   details.className = 'atelier';
   details.dataset.atelierIndex = ai;
   details.innerHTML = `
@@ -2239,6 +2246,7 @@ function renderAtelier(block, atelier, bi, ai){
         ${atelier.prerequis ? `<span class="fiche-chip">Prérequis : ${escapeHtml(atelier.prerequis)}</span>` : ''}
       </div>` : ''}
       ${safeUrl(atelier.lien) ? `<div class="atelier-resource-link"><a class="btn mini primary" href="${escAttr(safeUrl(atelier.lien))}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${icon('link','icon-svg-sm')} Ouvrir le module</a></div>` : ''}
+      ${safeUrl(atelier.ficheRessourceUrl) ? `<div class="atelier-resource-link"><a class="btn mini primary" href="${escAttr(safeUrl(atelier.ficheRessourceUrl))}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${icon(atelier.ficheRessourceType==='web'?'link':'download','icon-svg-sm')} ${atelier.ficheRessourceType==='web'?'Ouvrir la fiche en ligne':'Télécharger la fiche technique'}${atelier.ficheRessourceNom ? ` — ${escapeHtml(atelier.ficheRessourceNom)}` : ''}</a></div>` : ''}
       ${(atelier.contenu || []).length ? `<ul class="bullets">${atelier.contenu.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>` : ''}
       </div>
       <fieldset class="atelier-territories for-conseiller">
@@ -2708,10 +2716,17 @@ function confirmAddAtelier(bi, ci){
 function openFicheModal(bi, ai){
   const a = getAtelier(bi, ai);
   useStandardModal();
+  document.querySelector('.modal-box').classList.add('workshop-form-view');
   document.getElementById('modalTitle').textContent = 'Fiche technique de l’atelier';
   document.getElementById('modalContent').innerHTML = `
-    <p class="small-note" style="margin-bottom:10px;">Ces informations s’affichent aux jeunes comme un bref descriptif pratique de l’atelier — inutile de tout remplir, seuls les champs renseignés apparaissent.</p>
+    <p class="small-note" style="margin-bottom:10px;">Ajoute directement le document de l’atelier ou renseigne son lien web.</p>
     <div class="modal-grid">
+      <div class="full modal-section-label">Document ou ressource</div>
+      ${safeUrl(a.ficheRessourceUrl) ? `<div class="full"><span class="small-note">Ressource actuelle : <a href="${escAttr(safeUrl(a.ficheRessourceUrl))}" target="_blank" rel="noopener">${escapeHtml(a.ficheRessourceNom||'Ouvrir la ressource')}</a></span></div>` : ''}
+      <div class="full"><label for="mFicheFile">Téléverser un document</label><input id="mFicheFile" type="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/png"><span class="field-help">Clique sur « Choisir un fichier » — PDF, Word, JPG ou PNG, 8 Mo maximum.</span></div>
+      <div class="full"><label for="mFicheUrl">Ou renseigner un lien web</label><input id="mFicheUrl" type="url" value="${a.ficheRessourceType==='web' ? escAttr(a.ficheRessourceUrl||'') : ''}" placeholder="https://..."><span class="field-help">Un nouveau fichier ou un nouveau lien remplace la ressource actuelle.</span></div>
+      ${safeUrl(a.ficheRessourceUrl) ? `<div class="full"><label class="checkbox-line"><input id="mFicheRemoveResource" type="checkbox"> Supprimer la ressource actuelle</label></div>` : ''}
+      <div class="full modal-section-label">Informations pratiques facultatives</div>
       <div><label>Durée</label><input id="mFicheDuree" value="${escAttr(a.duree||'')}" placeholder="Ex. 2h, 1 journée"></div>
       <div><label>Format</label>
         <select id="mFicheFormat">
@@ -2726,24 +2741,64 @@ function openFicheModal(bi, ai){
       <div class="full"><label>Prérequis</label><input id="mFichePrerequis" value="${escAttr(a.prerequis||'')}" placeholder="Ex. Aucun, avoir un projet défini..."></div>
     </div>
     <div class="actions">
-      <button class="btn primary" type="button" onclick="confirmFiche(${bi},${ai})">${icon('check','icon-svg-sm')} Enregistrer la fiche</button>
+      <button class="btn primary" id="mFicheSaveBtn" type="button" onclick="confirmFiche(${bi},${ai})">${icon('check','icon-svg-sm')} Enregistrer la fiche</button>
       <button class="btn" type="button" onclick="closeModal()">Annuler</button>
     </div>`;
   openModal();
 }
 
-function confirmFiche(bi, ai){
+async function confirmFiche(bi, ai){
   const a = getAtelier(bi, ai);
+  const file = document.getElementById('mFicheFile')?.files?.[0];
+  const webUrl = valueOf('mFicheUrl').trim();
+  const removeResource = !!document.getElementById('mFicheRemoveResource')?.checked;
+  if(file && webUrl){ showToast('Choisis soit un fichier, soit un lien web.','warning'); return; }
+  if(webUrl && !safeUrl(webUrl)){ showToast('Le lien doit commencer par https://','warning'); return; }
+  if(file){
+    const allowedExtensions = /\.(pdf|doc|docx|jpe?g|png)$/i;
+    if(!allowedExtensions.test(file.name)){ showToast('Format non accepté : utilise PDF, Word, JPG ou PNG.','warning'); return; }
+    if(file.size > 8 * 1024 * 1024){ showToast('Le fichier dépasse la limite de 8 Mo.','warning'); return; }
+  }
+  const saveBtn = document.getElementById('mFicheSaveBtn');
+  if(saveBtn){ saveBtn.disabled=true; saveBtn.textContent=file?'Téléversement…':'Enregistrement…'; }
+  let uploadedResource = null;
+  if(file){
+    try{
+      const base64 = await fileToBase64(file);
+      uploadedResource = await postSharedAction('uploadResource', {name:file.name, mimeType:file.type, base64});
+      if(!uploadedResource?.url) throw new Error('Adresse du fichier absente');
+    }catch(error){
+      if(saveBtn){ saveBtn.disabled=false; saveBtn.innerHTML=`${icon('check','icon-svg-sm')} Enregistrer la fiche`; }
+      showToast('Téléversement impossible. Vérifie la mise à jour Apps Script et réessaie.','danger');
+      return;
+    }
+  }
   a.duree = valueOf('mFicheDuree').trim();
   a.format = valueOf('mFicheFormat');
   a.places = valueOf('mFichePlaces').trim();
   a.intervenant = valueOf('mFicheIntervenant').trim();
   a.prerequis = valueOf('mFichePrerequis').trim();
+  if(removeResource){ a.ficheRessourceUrl=''; a.ficheRessourceNom=''; a.ficheRessourceType=''; }
+  if(webUrl){ a.ficheRessourceUrl=safeUrl(webUrl); a.ficheRessourceNom='Lien web'; a.ficheRessourceType='web'; }
+  if(uploadedResource){
+    a.ficheRessourceUrl=uploadedResource.url;
+    a.ficheRessourceNom=uploadedResource.name || file.name;
+    a.ficheRessourceType=uploadedResource.type || 'file';
+  }
   logChange('modification', `Fiche technique mise à jour (« ${a.title} »)`);
   saveData();
   closeModal();
   showToast('Fiche technique enregistrée.','success');
   refreshAndOpenAtelier(bi, ai);
+}
+
+function fileToBase64(file){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>resolve(String(reader.result||'').split(',')[1]||'');
+    reader.onerror=()=>reject(reader.error||new Error('Lecture du fichier impossible'));
+    reader.readAsDataURL(file);
+  });
 }
 
 function editAtelier(bi, ai){
@@ -3012,8 +3067,8 @@ function setSaveStatus(text){
   if(el) el.textContent = text;
 }
 
-async function postPublicAction(action, payload){
-  if(!GOOGLE_SHEET_ENDPOINT) return false;
+async function postSharedAction(action, payload){
+  if(!GOOGLE_SHEET_ENDPOINT) throw new Error('Service partagé non configuré');
   try{
     const res = await fetch(GOOGLE_SHEET_ENDPOINT, {
       method:'POST',
@@ -3024,9 +3079,18 @@ async function postPublicAction(action, payload){
     const result = await res.json();
     if(!result.ok) throw new Error(result.error || 'Échec');
     setSaveStatus('À jour');
-    return true;
+    return result;
   }catch(err){
     setSaveStatus('Hors connexion');
+    throw err;
+  }
+}
+
+async function postPublicAction(action, payload){
+  try{
+    await postSharedAction(action,payload);
+    return true;
+  }catch(err){
     return false;
   }
 }
