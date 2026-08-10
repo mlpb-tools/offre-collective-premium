@@ -2216,7 +2216,6 @@ function renderAtelier(block, atelier, bi, ai){
   const allAvis = (atelier.sessions || []).flatMap(s => s.avis || []);
   const avisCount = allAvis.length;
   const avisAverage = avisCount ? allAvis.reduce((sum,a)=>sum+(a.note||0),0) / avisCount : 0;
-  const hasFiche = !!(atelier.duree || atelier.format || atelier.places || atelier.intervenant || atelier.prerequis || atelier.ficheRessourceUrl);
   details.className = 'atelier';
   details.dataset.atelierIndex = ai;
   details.innerHTML = `
@@ -2261,7 +2260,7 @@ function renderAtelier(block, atelier, bi, ai){
       <div class="atelier-tools editable for-conseiller">
         <div class="atelier-tools-main">
           <button class="btn mini subtle" onclick="editAtelier(${bi},${ai})">${icon('pencil','icon-svg-sm')} Modifier</button>
-          <button class="btn mini ${hasFiche ? 'subtle' : 'primary'}" onclick="openFicheModal(${bi},${ai})">${icon('file','icon-svg-sm')} ${hasFiche ? 'Fiche technique' : '+ Ajouter une fiche technique'}</button>
+          <button class="btn mini primary" onclick="openFicheModal(${bi},${ai})">${icon('file','icon-svg-sm')} Ajouter / modifier un document</button>
           <button class="btn mini subtle" onclick="openAvisReviewModal(${bi},${ai})">${icon('star','icon-svg-sm')} Avis reçus${avisCount ? ` (${avisCount})` : ''}</button>
         </div>
         <div class="atelier-tools-secondary">
