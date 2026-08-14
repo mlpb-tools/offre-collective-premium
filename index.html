@@ -3,7 +3,7 @@
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Offre collective MLPB — V34 sécurisée</title>
+  <title>Offre collective MLPB — V35 sécurisée</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
@@ -198,6 +198,169 @@
     body.mode-conseiller .resource-wrap, body.mode-conseiller .session-card, body.mode-conseiller .field{border-radius:12px}
     body.mode-conseiller .resource-wrap > summary, body.mode-conseiller .session-card{padding:8px}
 
+</style>
+
+<style id="v35-visual-system">
+  /* V35 — évolution visuelle MLPB : plus calme, plus hiérarchisée, mêmes fonctions. */
+  :root{
+    --v35-ink:#202a33;
+    --v35-muted:#61707c;
+    --v35-line:#d9e1e7;
+    --v35-surface:#ffffff;
+    --v35-soft:#f5f7f9;
+    --v35-success:#267a52;
+    --v35-info:#2166a5;
+    --v35-warning:#a76500;
+    --v35-danger:#c83345;
+    --v35-radius:16px;
+    --v35-shadow:0 8px 24px rgba(32,42,51,.09);
+  }
+
+  /* Une seule hiérarchie de boutons. */
+  .btn,.btn.mini{
+    border-radius:10px !important;
+    box-shadow:none !important;
+    font-weight:750 !important;
+    letter-spacing:0 !important;
+    text-transform:none !important;
+  }
+  .btn:hover:not(:disabled){transform:translateY(-1px) !important;box-shadow:0 4px 12px rgba(32,42,51,.12) !important;}
+  .btn.primary{background:var(--v35-ink) !important;border-color:var(--v35-ink) !important;color:#fff !important;}
+  .btn.subtle{background:#fff !important;border-color:#bfcad2 !important;color:var(--v35-ink) !important;}
+  .btn.danger-outline{background:#fff !important;border-color:#e3b5bc !important;color:var(--v35-danger) !important;}
+  .icon-action{box-shadow:none !important;border-color:#cbd4db !important;}
+
+  /* En-tête : moins d'effets, meilleure lecture. */
+  .app-header{background:rgba(255,255,255,.96) !important;box-shadow:0 1px 0 rgba(32,42,51,.12) !important;}
+  .segmented{border:1px solid #c8d1d8 !important;box-shadow:none !important;background:var(--v35-soft) !important;}
+  .segmented button{font-weight:750 !important;color:#52616d !important;}
+  .segmented button.active{background:var(--v35-ink) !important;color:#fff !important;}
+  .territory-filter select{border-color:#c8d1d8 !important;box-shadow:none !important;}
+
+  /* Accueil jeunes : identité colorée préservée, alignements renforcés. */
+  body.mode-jeune .mindmap-grid{border:2px solid #202a33 !important;border-radius:24px !important;box-shadow:0 14px 36px rgba(32,42,51,.13) !important;}
+  body.mode-jeune .tile{box-shadow:none !important;transform:none !important;}
+  body.mode-jeune .tile:hover{filter:brightness(1.025);transform:none !important;}
+  body.mode-jeune .tile-head{justify-content:center;}
+  body.mode-jeune .tile h2{font-size:16px !important;line-height:1.18 !important;letter-spacing:.018em !important;}
+  body.mode-jeune .tile .intro{font-size:13px !important;line-height:1.36 !important;max-width:300px !important;}
+  body.mode-jeune .icon{opacity:.94;}
+
+  /* Espace conseiller : surfaces neutres et repères colorés discrets. */
+  body.mode-conseiller{background:#eef2f5 !important;}
+  body.mode-conseiller .app-header{border-bottom:3px solid #a3195b !important;}
+  .advisor-badge{
+    display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;
+    background:#f6eaf0;color:#801347;border:1px solid #e4bfd0;font-size:10.5px;font-weight:800;white-space:nowrap;
+  }
+  .advisor-badge::before{content:'●';font-size:8px;color:var(--v35-success);}
+  body.mode-conseiller .mindmap-grid{gap:12px !important;background:transparent !important;border:0 !important;box-shadow:none !important;overflow:visible !important;}
+  body.mode-conseiller .tile{
+    border:1px solid rgba(32,42,51,.16) !important;
+    border-radius:var(--v35-radius) !important;box-shadow:var(--v35-shadow) !important;
+  }
+  body.mode-conseiller .tile.blue{background:linear-gradient(135deg,#2897d5 0%,#1f7fb5 100%) !important;color:#fff !important;}
+  body.mode-conseiller .tile.pink{background:linear-gradient(135deg,#a3195b 0%,#7d174f 100%) !important;color:#fff !important;}
+  body.mode-conseiller .tile.gold{background:linear-gradient(135deg,#f39200 0%,#cf7900 100%) !important;color:#fff !important;}
+  body.mode-conseiller .tile.coral{background:linear-gradient(135deg,#9f3d3f 0%,#7d2f32 100%) !important;color:#fff !important;}
+  body.mode-conseiller .tile.teal{background:linear-gradient(135deg,#95c11f 0%,#779e14 100%) !important;color:#fff !important;}
+  body.mode-conseiller .tile.lime{background:linear-gradient(135deg,#d60b52 0%,#a90945 100%) !important;color:#fff !important;}
+  body.mode-conseiller .tile.aqua{background:linear-gradient(135deg,#171718 0%,#343437 100%) !important;color:#fff !important;}
+  body.mode-conseiller .tile.grey{background:linear-gradient(135deg,#fff 0%,#ededed 100%) !important;color:var(--v35-ink) !important;}
+  body.mode-conseiller .tile:hover{transform:translateY(-1px) !important;box-shadow:0 12px 28px rgba(32,42,51,.12) !important;}
+  body.mode-conseiller .tile:not(.grey) h2,body.mode-conseiller .tile:not(.grey) .icon{color:#fff !important;}
+  body.mode-conseiller .tile.grey h2,body.mode-conseiller .tile.grey .icon{color:var(--v35-ink) !important;}
+  body.mode-conseiller .tile .icon{width:46px !important;height:46px !important;opacity:.82;}
+  body.mode-conseiller .tile-head{min-height:168px !important;}
+  body.mode-conseiller .tile-body{background:var(--v35-soft) !important;border-radius:12px !important;}
+  body.mode-conseiller .subcategory,
+  body.mode-conseiller .atelier,
+  body.mode-conseiller .session-card,
+  body.mode-conseiller .resource-wrap,
+  body.mode-conseiller .field{
+    border:1px solid var(--v35-line) !important;border-radius:12px !important;
+    box-shadow:0 2px 8px rgba(32,42,51,.055) !important;background:#fff !important;
+  }
+  body.mode-conseiller .subcategory:hover,body.mode-conseiller .atelier:hover{box-shadow:0 5px 14px rgba(32,42,51,.09) !important;}
+  body.mode-conseiller .atelier[open]>summary{background:#f8fafb !important;border-bottom:1px solid var(--v35-line) !important;}
+  body.mode-conseiller .atelier-tools{border-top:1px solid var(--v35-line);padding-top:12px;}
+  body.mode-conseiller .atelier-tools-main .btn.primary{background:#fff !important;color:var(--v35-ink) !important;border-color:#aebac3 !important;}
+
+  /* Typographie et indicateurs. */
+  .subcategory-title{font-size:14.5px !important;line-height:1.3 !important;}
+  .atelier-title{font-size:15px !important;line-height:1.3 !important;}
+  .small-note,.field-help{color:var(--v35-muted) !important;}
+  .count,.tile-count,.inscrits-badge{
+    box-shadow:none !important;border:1px solid #cad5dd !important;background:#f3f6f8 !important;color:var(--v35-ink) !important;
+  }
+  .stars-badge{background:#fff7df !important;border-color:#ead392 !important;color:#755300 !important;}
+  .save-status{color:var(--v35-success) !important;font-weight:800 !important;}
+
+  /* Recherche et bandeau de pilotage conseiller. */
+  .catalog-toolbar{display:flex;align-items:center;gap:10px;margin:0 0 12px;}
+  .catalog-search{position:relative;flex:1;max-width:620px;}
+  .catalog-search input{width:100%;min-height:44px;padding:10px 42px 10px 40px;border:1px solid #c8d2da;border-radius:12px;background:#fff;color:var(--v35-ink);font:inherit;box-shadow:0 2px 8px rgba(32,42,51,.05);}
+  .catalog-search input:focus{outline:3px solid rgba(40,151,213,.2);border-color:#2897d5;}
+  .catalog-search::before{content:'⌕';position:absolute;left:14px;top:8px;font-size:22px;color:#60707c;pointer-events:none;}
+  .search-clear{position:absolute;right:7px;top:6px;width:32px;height:32px;border:0;border-radius:8px;background:transparent;color:#596875;font-size:20px;cursor:pointer;}
+  .advisor-overview{display:none;margin:0 0 12px;padding:12px;background:#fff;border:1px solid var(--v35-line);border-radius:16px;box-shadow:0 5px 18px rgba(32,42,51,.06);}
+  body.mode-conseiller .advisor-overview{display:block;}
+  .advisor-overview-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;}
+  .advisor-overview-head h2{margin:0;font-size:15px;color:var(--v35-ink);}
+  .overview-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;}
+  .overview-card{display:flex;align-items:center;gap:10px;min-height:64px;padding:10px 12px;border:1px solid var(--v35-line);border-radius:12px;background:var(--v35-soft);}
+  .overview-icon{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#fff;color:var(--v35-info);border:1px solid #d6e0e7;flex:0 0 auto;}
+  .overview-value{display:block;font-size:21px;line-height:1;font-weight:850;color:var(--v35-ink);}
+  .overview-label{display:block;margin-top:3px;font-size:11px;line-height:1.2;color:var(--v35-muted);}
+  .overview-card.unsaved.is-dirty{background:#fff4df;border-color:#e9c37d;}
+  .overview-card.unsaved.is-dirty .overview-icon,.overview-card.unsaved.is-dirty .overview-value{color:var(--v35-warning);}
+  .unsaved-dot{display:none;width:9px;height:9px;border-radius:50%;background:#e58b00;box-shadow:0 0 0 3px rgba(229,139,0,.16);}
+  .unsaved-dot.visible{display:inline-block;}
+  .save-button-dirty{background:#b86a00 !important;border-color:#b86a00 !important;}
+
+  /* Résumé fermé et trois zones d'un atelier. */
+  .atelier-summary-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px;}
+  .summary-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 7px;border:1px solid #d3dce3;border-radius:999px;background:#f5f7f9;color:#53626e;font-size:10.5px;font-weight:700;line-height:1.2;}
+  .summary-chip.available{background:#eaf6ef;border-color:#badac8;color:#256846;}
+  .workshop-zone{padding:14px;border:1px solid var(--v35-line);border-radius:12px;background:#fff;}
+  .workshop-zone + .workshop-zone{margin-top:10px;}
+  .workshop-zone-title{display:flex;align-items:center;gap:7px;margin:0 0 10px;font-size:12px;font-weight:850;text-transform:uppercase;letter-spacing:.055em;color:#4f5f6b;}
+  .workshop-zone-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .workshop-zone-head .workshop-zone-title{margin:0;}
+  .workshop-zone-title .zone-number{display:grid;place-items:center;width:22px;height:22px;border-radius:7px;background:#eef2f5;color:#35434e;font-size:11px;}
+  .workshop-actions-zone{background:#f8fafb;}
+  .danger-zone{display:flex;justify-content:flex-end;margin-top:12px;padding-top:12px;border-top:1px solid #ead4d7;}
+  .mobile-more{display:contents;}
+  .mobile-more>summary{display:none;}
+  .empty-action{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px dashed #bdc9d2;border-radius:10px;background:#fafcfd;}
+  .empty-action p{margin:0;color:var(--v35-muted);font-size:12px;}
+  .search-empty{grid-column:1/-1;padding:32px;text-align:center;border:1px dashed #bdc9d2;border-radius:16px;background:#fff;color:var(--v35-muted);}
+
+  /* Modales plus sobres. */
+  .modal-box{border:1px solid #cbd5dc !important;border-radius:18px !important;box-shadow:0 24px 70px rgba(20,31,44,.28) !important;}
+  .modal-head{background:#f7f9fa !important;border-bottom:1px solid var(--v35-line) !important;}
+  .modal-head h3{font-size:19px !important;line-height:1.25 !important;letter-spacing:.01em !important;}
+  .modal input,.modal textarea,.modal select{border-color:#cbd5dc !important;border-radius:9px !important;box-shadow:none !important;}
+
+  @media(max-width:720px){
+    .btn,.btn.mini{min-height:42px;justify-content:center;}
+    .data-tools,.quick-tools{width:100%;justify-content:center;}
+    body.mode-conseiller .mindmap-grid{gap:10px !important;}
+    body.mode-conseiller .tile{border-radius:14px !important;}
+    .advisor-badge{order:-1;}
+    .catalog-toolbar{display:block;}
+    .catalog-search{max-width:none;}
+    .overview-grid{grid-template-columns:1fr 1fr;}
+    .overview-card{min-height:72px;}
+    .atelier-summary-meta{margin-top:8px;}
+    .workshop-zone{padding:11px;}
+    .atelier-tools-main,.atelier-tools-secondary{display:grid !important;grid-template-columns:1fr !important;width:100%;}
+    .atelier-tools .btn{width:100%;}
+    .mobile-more{display:block;width:100%;margin-top:8px;border-top:1px solid var(--v35-line);padding-top:8px;}
+    .mobile-more>summary{display:flex;align-items:center;justify-content:center;min-height:42px;border:1px solid #c6d0d8;border-radius:10px;background:#fff;color:var(--v35-ink);font-weight:750;cursor:pointer;}
+    .mobile-more-content{margin-top:8px;}
+    .empty-action{align-items:stretch;flex-direction:column;}
+  }
 </style>
 
 <style id="v33-territories-and-young-intros">
@@ -1149,6 +1312,74 @@
 </style>
 
 
+<style id="v35-workshop-ergonomics-fix">
+  /* Correctif V35 : un seul défilement et une lecture linéaire de chaque atelier. */
+  body.mode-conseiller .category-workshops{
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:12px !important;
+  }
+  body.mode-conseiller .category-workshops .atelier{
+    width:100%;
+    max-width:none;
+  }
+  body.mode-conseiller .category-workshops .atelier[open] .atelier-content{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:12px !important;
+    max-height:none !important;
+    overflow:visible !important;
+    scrollbar-gutter:auto !important;
+    padding:14px !important;
+  }
+  body.mode-conseiller .category-workshops .workshop-zone{
+    width:100%;
+    min-width:0;
+    margin:0 !important;
+  }
+  body.mode-conseiller .category-workshops .workshop-presentation-zone{order:1;}
+  body.mode-conseiller .category-workshops .workshop-sessions-zone{order:2;}
+  body.mode-conseiller .category-workshops .workshop-actions-zone{order:3;}
+  body.mode-conseiller .workshop-sessions-zone{
+    border-color:#b9c9d5 !important;
+    background:#f8fbfd !important;
+  }
+  body.mode-conseiller .workshop-sessions-zone > .resource-wrap{
+    margin:0 !important;
+    overflow:hidden;
+    border-color:#aebfcb !important;
+    box-shadow:none !important;
+  }
+  body.mode-conseiller .workshop-sessions-zone > .resource-wrap > summary{
+    min-height:52px;
+    padding:10px 12px !important;
+    background:#fff;
+  }
+  body.mode-conseiller .workshop-sessions-zone .summary-right{
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+  body.mode-conseiller .workshop-sessions-zone .btn.primary{
+    min-height:36px;
+  }
+  body.mode-conseiller .workshop-actions-zone .atelier-tools{
+    padding-top:0 !important;
+    border-top:0 !important;
+  }
+  @media(max-width:720px){
+    body.mode-conseiller .category-view .modal-content{padding:10px !important;}
+    body.mode-conseiller .category-workshops .atelier[open] .atelier-content{padding:10px !important;}
+    body.mode-conseiller .workshop-sessions-zone > .resource-wrap > summary{
+      align-items:flex-start;
+    }
+    body.mode-conseiller .workshop-sessions-zone .summary-right{
+      width:100%;
+      justify-content:space-between;
+    }
+    body.mode-conseiller .workshop-sessions-zone .btn.primary{
+      flex:1;
+    }
+  }
+</style>
 </head>
 <body class="mode-jeune">
   <header class="app-header">
@@ -1176,7 +1407,9 @@
         <button class="btn mini subtle for-jeune" type="button" onclick="openIdeaModal()" title="Proposer une idée d’atelier">💡 Proposer une idée</button>
       </div>
       <div class="data-tools for-conseiller" role="group" aria-label="Gestion des données">
-        <button class="btn primary" type="button" onclick="saveToSharedSheet()" title="Enregistrer et partager tes modifications avec toute l’équipe">Enregistrer</button>
+        <span class="advisor-badge">Mode conseillers sécurisé</span>
+        <span id="unsavedHeaderDot" class="unsaved-dot" aria-hidden="true"></span>
+        <button id="saveSharedBtn" class="btn primary" type="button" onclick="saveToSharedSheet()" title="Enregistrer et partager tes modifications avec toute l’équipe">Modifications enregistrées</button>
         <span id="saveStatus" class="save-status" aria-live="polite"></span>
         <button class="btn mini subtle" type="button" onclick="logoutCounselor()" title="Fermer la session conseillers">Se déconnecter</button>
         <button class="icon-action" type="button" onclick="toggleAdvancedTools()" id="advancedToggleBtn" aria-expanded="false" aria-controls="advancedTools" title="Options avancées" aria-label="Options avancées">⋯</button>
@@ -1193,6 +1426,13 @@
   </header>
 
   <main class="app-shell">
+    <div class="catalog-toolbar">
+      <div class="catalog-search">
+        <input id="catalogSearch" type="search" placeholder="Rechercher un atelier" aria-label="Rechercher dans les titres, sous-rubriques, contenus et intervenants" oninput="setSearchQuery(this.value)">
+        <button class="search-clear" type="button" aria-label="Effacer la recherche" title="Effacer" onclick="clearSearch()">×</button>
+      </div>
+    </div>
+    <section id="advisorOverview" class="advisor-overview for-conseiller" aria-label="Vue d’ensemble conseillers"></section>
     <div id="mindmap" class="mindmap-grid"></div>
   </main>
 
@@ -1571,6 +1811,26 @@ const TERRITORIES = [
   {id:'pbi', label:'Pays Basque Intérieur'}
 ];
 let selectedTerritory = 'all';
+let searchQuery = '';
+let hasUnsavedChanges = false;
+
+function setDirtyState(dirty){
+  hasUnsavedChanges=!!dirty;
+  const saveBtn=document.getElementById('saveSharedBtn');
+  const dot=document.getElementById('unsavedHeaderDot');
+  if(saveBtn){
+    saveBtn.classList.toggle('save-button-dirty',hasUnsavedChanges);
+    saveBtn.textContent=hasUnsavedChanges ? 'Enregistrer les modifications' : 'Modifications enregistrées';
+  }
+  if(dot) dot.classList.toggle('visible',hasUnsavedChanges);
+  renderAdvisorOverview();
+}
+
+window.addEventListener('beforeunload',event=>{
+  if(!hasUnsavedChanges) return;
+  event.preventDefault();
+  event.returnValue='';
+});
 
 /* ====== Migration RGPD : purge des données nominatives résiduelles ======
    Les inscriptions se font désormais exclusivement sur linscription.com ;
@@ -1725,6 +1985,7 @@ function normalizeV30Content(data){
 
 function saveData(){
   localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+  if(document.body.classList.contains('mode-conseiller')) setDirtyState(true);
 }
 
 function updateOverviewStats(){ return; }
@@ -1732,6 +1993,73 @@ function updateOverviewStats(){ return; }
 function setTerritory(territory){
   selectedTerritory = territory || 'all';
   render();
+}
+
+function normalizeSearchText(value){
+  return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+}
+
+function setSearchQuery(value){
+  searchQuery=normalizeSearchText(value);
+  render();
+}
+
+function clearSearch(){
+  searchQuery='';
+  const input=document.getElementById('catalogSearch');
+  if(input){ input.value=''; input.focus(); }
+  render();
+}
+
+function matchesSearch(block,category,atelier){
+  if(!searchQuery) return true;
+  const haystack=[
+    block?.title,block?.titreJeune,block?.titreConseiller,
+    category?.title,category?.titreJeune,category?.titreConseiller,
+    atelier?.title,atelier?.titreJeune,atelier?.titreConseiller,atelier?.objectif,
+    atelier?.intervenant,atelier?.prerequis,(atelier?.contenu||[]).join(' ')
+  ].map(normalizeSearchText).join(' ');
+  return haystack.includes(searchQuery);
+}
+
+function getNextSession(atelier){
+  const now=new Date();
+  now.setHours(0,0,0,0);
+  return (atelier?.sessions||[])
+    .map(session=>({session,date:parseFrenchDate(session.date)}))
+    .filter(item=>item.date && item.date>=now)
+    .sort((a,b)=>a.date-b.date)[0] || null;
+}
+
+function computeAdvisorOverview(){
+  let upcoming=0,withoutDate=0,inscrits=0;
+  const now=new Date(); now.setHours(0,0,0,0);
+  (appData.blocks||[]).forEach(block=>(block.categories||[]).forEach(category=>(category.ateliers||[]).forEach(atelier=>{
+    if(!isVisibleForTerritory(atelier) || !matchesSearch(block,category,atelier)) return;
+    const sessions=atelier.sessions||[];
+    const dated=sessions.map(s=>parseFrenchDate(s.date)).filter(Boolean);
+    if(!dated.length) withoutDate++;
+    sessions.forEach(session=>{
+      const date=parseFrenchDate(session.date);
+      if(date && date>=now) upcoming++;
+      inscrits+=Number(session.inscrits||0);
+    });
+  })));
+  return {upcoming,withoutDate,inscrits};
+}
+
+function renderAdvisorOverview(){
+  const root=document.getElementById('advisorOverview');
+  if(!root) return;
+  const stats=computeAdvisorOverview();
+  root.innerHTML=`
+    <div class="advisor-overview-head"><h2>Vue d’ensemble</h2><span class="small-note">${selectedTerritory==='all'?'Tous les territoires':escapeHtml(TERRITORIES.find(t=>t.id===selectedTerritory)?.label||'Territoire sélectionné')}</span></div>
+    <div class="overview-grid">
+      <div class="overview-card"><span class="overview-icon">${icon('calendar','icon-svg-sm')}</span><span><b class="overview-value">${stats.upcoming}</b><span class="overview-label">prochaine${stats.upcoming>1?'s':''} session${stats.upcoming>1?'s':''}</span></span></div>
+      <div class="overview-card"><span class="overview-icon">${icon('inbox','icon-svg-sm')}</span><span><b class="overview-value">${stats.withoutDate}</b><span class="overview-label">atelier${stats.withoutDate>1?'s':''} sans date</span></span></div>
+      <div class="overview-card"><span class="overview-icon">${icon('users','icon-svg-sm')}</span><span><b class="overview-value">${stats.inscrits}</b><span class="overview-label">inscrit${stats.inscrits>1?'s':''} comptabilisé${stats.inscrits>1?'s':''}</span></span></div>
+      <div class="overview-card unsaved ${hasUnsavedChanges?'is-dirty':''}"><span class="overview-icon">${hasUnsavedChanges?'!':'✓'}</span><span><b class="overview-value">${hasUnsavedChanges?'Oui':'Non'}</b><span class="overview-label">modification${hasUnsavedChanges?'s':''} non enregistrée${hasUnsavedChanges?'s':''}</span></span></div>
+    </div>`;
 }
 
 function getAtelierTerritories(atelier){
@@ -1762,6 +2090,7 @@ function checkedTerritories(){
 
 const COUNSELOR_TOKEN_KEY = 'mlpb_counselor_session';
 const COUNSELOR_DEVICE_KEY = 'mlpb_counselor_device';
+let pendingSaveAfterLogin = false;
 
 function getCounselorToken(){
   try{ return sessionStorage.getItem(COUNSELOR_TOKEN_KEY) || ''; }catch(e){ return ''; }
@@ -1789,20 +2118,19 @@ function applyMode(mode){
   render();
 }
 
-function setMode(mode){
+async function setMode(mode){
   if(mode==='conseiller') return requestCounselorAccess();
+  if(hasUnsavedChanges && !window.confirm('Des modifications ne sont pas encore enregistrées et partagées. Quitter quand même l’entrée conseillers ?')) return;
+  const token=getCounselorToken();
+  setCounselorToken('');
   applyMode('jeune');
+  setSaveStatus('');
+  if(token){ try{ await postSharedAction('logout',{token}); }catch(e){} }
 }
 
 async function requestCounselorAccess(){
-  const token=getCounselorToken();
-  if(token){
-    try{
-      await postSharedAction('validateSession',{token});
-      applyMode('conseiller');
-      return;
-    }catch(error){ setCounselorToken(''); }
-  }
+  if(document.body.classList.contains('mode-conseiller')) return;
+  setCounselorToken('');
   openCounselorLogin();
 }
 
@@ -1828,21 +2156,28 @@ async function confirmCounselorLogin(){
   if(btn){ btn.disabled=true; btn.textContent='Vérification…'; }
   try{
     const result=await postSharedAction('login',{code,deviceId:getCounselorDeviceId()});
+    if(!result.token) throw new Error('BACKEND_V35_NON_DEPLOYE');
     setCounselorToken(result.token || '');
     closeModal();
     applyMode('conseiller');
     setSaveStatus('Session sécurisée');
     showToast('Accès conseillers ouvert.','success');
+    if(pendingSaveAfterLogin){
+      pendingSaveAfterLogin=false;
+      await saveToSharedSheet();
+    }
   }catch(error){
     if(btn){ btn.disabled=false; btn.innerHTML=`${icon('check','icon-svg-sm')} Ouvrir l’entrée conseillers`; }
     const message=String(error.message||error);
-    if(message.includes('ACCES_NON_CONFIGURE')) showToast('Le code conseillers doit d’abord être configuré dans Apps Script.','danger');
+    if(message.includes('BACKEND_V35_NON_DEPLOYE')) showToast('Le déploiement Apps Script actif n’utilise pas encore le backend sécurisé V35. Crée une nouvelle version du déploiement.','danger');
+    else if(message.includes('ACCES_NON_CONFIGURE')) showToast('Le code conseillers doit d’abord être configuré dans Apps Script.','danger');
     else if(message.includes('ACCES_BLOQUE')) showToast('Trop de tentatives. Réessaie dans 15 minutes.','danger');
     else showToast('Code incorrect.','danger');
   }
 }
 
 async function logoutCounselor(){
+  if(hasUnsavedChanges && !window.confirm('Des modifications ne sont pas encore enregistrées et partagées. Se déconnecter quand même ?')) return;
   const token=getCounselorToken();
   setCounselorToken('');
   applyMode('jeune');
@@ -2212,9 +2547,14 @@ function render(){
   const root = document.getElementById('mindmap');
   root.innerHTML = '';
   updateOverviewStats();
+  renderAdvisorOverview();
+  let renderedBlocks=0;
 
   appData.blocks.forEach((block, bi)=>{
     const allEntries = getAtelierEntries(block);
+    const visibleEntries=allEntries.filter(entry=>isVisibleForTerritory(entry.atelier) && matchesSearch(block,entry.category,entry.atelier));
+    if(searchQuery && !visibleEntries.length) return;
+    renderedBlocks++;
     const tile = document.createElement('section');
     tile.className = `tile ${block.color}`;
     tile.dataset.block = bi;
@@ -2240,13 +2580,17 @@ function render(){
     block.categories.forEach((category, ci)=>{
       const entries = allEntries
         .map((entry, flatIndex)=>({...entry,flatIndex}))
-        .filter(entry=>entry.ci===ci && isVisibleForTerritory(entry.atelier));
+        .filter(entry=>entry.ci===ci && isVisibleForTerritory(entry.atelier) && matchesSearch(block,category,entry.atelier));
+      if(searchQuery && !entries.length) return;
       body.appendChild(renderSubcategory(block, category, bi, ci, entries));
     });
 
     tile.appendChild(body);
     root.appendChild(tile);
   });
+  if(!renderedBlocks){
+    root.innerHTML=`<div class="search-empty">${icon('inbox','icon-svg-sm')} Aucun atelier ne correspond à « ${escapeHtml(document.getElementById('catalogSearch')?.value||'')} » sur ce territoire.</div>`;
+  }
 }
 
 function renderSubcategory(block, category, bi, ci, entries){
@@ -2272,7 +2616,7 @@ function openSubcategory(bi, ci){
   if(!category) return;
   const entries=getAtelierEntries(block)
     .map((entry,flatIndex)=>({...entry,flatIndex}))
-    .filter(entry=>entry.ci===ci && isVisibleForTerritory(entry.atelier));
+    .filter(entry=>entry.ci===ci && isVisibleForTerritory(entry.atelier) && matchesSearch(block,category,entry.atelier));
   const categoryLabel = displayTitle(category);
   document.getElementById('modalTitle').textContent=categoryLabel;
   document.querySelector('.modal-box').classList.add('category-view');
@@ -2301,6 +2645,9 @@ function renderAtelier(block, atelier, bi, ai){
   const allAvis = (atelier.sessions || []).flatMap(s => s.avis || []);
   const avisCount = allAvis.length;
   const avisAverage = avisCount ? allAvis.reduce((sum,a)=>sum+(a.note||0),0) / avisCount : 0;
+  const nextSession=getNextSession(atelier);
+  const territoryLabels=getAtelierTerritories(atelier).map(id=>TERRITORIES.find(t=>t.id===id)?.label).filter(Boolean);
+  const hasDocument=!!safeUrl(atelier.ficheRessourceUrl);
   details.className = 'atelier';
   details.dataset.atelierIndex = ai;
   details.innerHTML = `
@@ -2309,16 +2656,23 @@ function renderAtelier(block, atelier, bi, ai){
         <div class="atelier-heading-text">
           <div class="atelier-title">${escapeHtml(atelierLabel)}</div>
           ${atelier.objectif ? `<p class="atelier-intro-young for-jeune"><em>${escapeHtml(atelier.objectif)}</em></p>` : ''}
+          <div class="atelier-summary-meta">
+            ${nextSession ? `<span class="summary-chip">${icon('calendar','icon-svg-sm')} ${escapeHtml(nextSession.session.date||'')}</span>` : `<span class="summary-chip for-conseiller">Sans date</span>`}
+            ${territoryLabels.length ? `<span class="summary-chip for-conseiller">${escapeHtml(territoryLabels.length===TERRITORIES.length?'Tous les territoires':territoryLabels.join(', '))}</span>` : ''}
+            ${inscritsCount ? `<span class="summary-chip for-conseiller">${icon('users','icon-svg-sm')} ${inscritsCount}</span>` : ''}
+            ${hasDocument ? `<span class="summary-chip available">${icon('file','icon-svg-sm')} Document disponible</span>` : ''}
+          </div>
         </div>
         ${avisCount ? `<span class="inscrits-badge stars-badge" title="${avisCount} avis reçus">${icon('star','icon-svg-sm star-filled')} ${avisAverage.toFixed(1)}</span>` : ''}
         ${inscritsCount ? `<span class="inscrits-badge" title="${inscritsCount} inscrit${inscritsCount>1?'s':''} au total">${icon('users','icon-svg-sm')} ${inscritsCount}</span>` : ''}
       </div>
       <div class="atelier-summary-actions">
-        <button class="icon-action danger for-conseiller" type="button" aria-label="Supprimer l’atelier ${escAttr(atelierLabel)}" title="Supprimer cet atelier" onclick="event.preventDefault();event.stopPropagation();removeAtelier(${bi},${ai})">${icon('trash')}</button>
         <button class="icon-action atelier-toggle" type="button" aria-label="Afficher l’atelier ${escAttr(atelierLabel)}" title="Afficher ou réduire cet atelier" onclick="event.preventDefault();event.stopPropagation();toggleAtelier(this)">${icon('chevron')}</button>
       </div>
     </summary>
     <div class="atelier-content">
+      <section class="workshop-zone workshop-presentation-zone">
+      <h4 class="workshop-zone-title"><span class="zone-number">1</span> Présentation</h4>
       <div class="atelier-overview">
       ${atelier.objectif ? `<p class="atelier-objective">${escapeHtml(atelier.objectif)}</p>` : ''}
       ${(atelier.duree || atelier.format || atelier.places || atelier.intervenant || atelier.prerequis) ? `
@@ -2330,7 +2684,7 @@ function renderAtelier(block, atelier, bi, ai){
         ${atelier.prerequis ? `<span class="fiche-chip">Prérequis : ${escapeHtml(atelier.prerequis)}</span>` : ''}
       </div>` : ''}
       ${safeUrl(atelier.lien) ? `<div class="atelier-resource-link"><a class="btn mini primary" href="${escAttr(safeUrl(atelier.lien))}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${icon('link','icon-svg-sm')} Ouvrir le module</a></div>` : ''}
-      ${safeUrl(atelier.ficheRessourceUrl) ? `<div class="atelier-resource-link"><a class="btn mini primary" href="${escAttr(safeUrl(atelier.ficheRessourceUrl))}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${icon(atelier.ficheRessourceType==='web'?'link':'download','icon-svg-sm')} ${atelier.ficheRessourceType==='web'?'Ouvrir la fiche en ligne':'Télécharger la fiche technique'}${atelier.ficheRessourceNom ? ` — ${escapeHtml(atelier.ficheRessourceNom)}` : ''}</a></div>` : ''}
+      ${safeUrl(atelier.ficheRessourceUrl) ? `<div class="atelier-resource-link"><a class="btn mini primary" href="${escAttr(safeUrl(atelier.ficheRessourceUrl))}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${icon(atelier.ficheRessourceType==='web'?'link':'download','icon-svg-sm')} ${atelier.ficheRessourceType==='web'?'Ouvrir le document en ligne':'Télécharger le document'}${atelier.ficheRessourceNom ? ` — ${escapeHtml(atelier.ficheRessourceNom)}` : ''}</a></div>` : ''}
       ${(atelier.contenu || []).length ? `<ul class="bullets">${atelier.contenu.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>` : ''}
       </div>
       <fieldset class="atelier-territories for-conseiller">
@@ -2342,18 +2696,32 @@ function renderAtelier(block, atelier, bi, ai){
           ${TERRITORIES.map(t=>`<label class="atelier-territory"><input type="checkbox" ${getAtelierTerritories(atelier).includes(t.id)?'checked':''} onchange="toggleAtelierTerritory(${bi},${ai},'${t.id}',this)"> ${escapeHtml(t.label)}</label>`).join('')}
         </div>
       </fieldset>
-      <div class="atelier-tools editable for-conseiller">
+      ${!hasDocument ? `<div class="empty-action for-conseiller"><p>Aucun document associé à cet atelier.</p><button class="btn mini subtle" type="button" onclick="openFicheModal(${bi},${ai})">${icon('file','icon-svg-sm')} Ajouter un document</button></div>` : ''}
+      </section>
+      <section class="workshop-zone workshop-sessions-zone">
+        <div class="workshop-zone-head">
+          <h4 class="workshop-zone-title"><span class="zone-number">2</span> Sessions</h4>
+          <button class="btn mini primary editable" type="button" onclick="openSessionModal(${bi},${ai})">${icon('plus','icon-svg-sm')} ${isVisitWorkshop(atelier)?'Ajouter une visite':'Ajouter une session'}</button>
+        </div>
+        ${renderSessions(atelier, bi, ai)}
+      </section>
+      <section class="workshop-zone workshop-actions-zone for-conseiller">
+      <h4 class="workshop-zone-title"><span class="zone-number">3</span> Actions</h4>
+      <div class="atelier-tools editable">
         <div class="atelier-tools-main">
-          <button class="btn mini subtle" onclick="editAtelier(${bi},${ai})">${icon('pencil','icon-svg-sm')} Modifier</button>
-          <button class="btn mini primary" onclick="openFicheModal(${bi},${ai})">${icon('file','icon-svg-sm')} Ajouter / modifier un document</button>
-          <button class="btn mini subtle" onclick="openAvisReviewModal(${bi},${ai})">${icon('star','icon-svg-sm')} Avis reçus${avisCount ? ` (${avisCount})` : ''}</button>
+          <button class="btn mini subtle" onclick="editAtelier(${bi},${ai})">${icon('pencil','icon-svg-sm')} Modifier l’atelier</button>
+          <button class="btn mini subtle" onclick="openFicheModal(${bi},${ai})">${icon('file','icon-svg-sm')} ${hasDocument?'Modifier le document':'Ajouter un document'}</button>
+          <button class="btn mini subtle" onclick="openAvisReviewModal(${bi},${ai})">${icon('star','icon-svg-sm')} Voir les avis${avisCount ? ` (${avisCount})` : ''}</button>
         </div>
-        <div class="atelier-tools-secondary">
-          <button class="btn mini subtle" onclick="exportAtelierSessionsCSV(${bi},${ai})" title="Exporter les sessions de cet atelier en CSV">${icon('download','icon-svg-sm')} Exporter les sessions</button>
-          <button class="btn mini danger-outline" onclick="removeAtelier(${bi},${ai})">${icon('trash','icon-svg-sm')} Supprimer</button>
-        </div>
+        <details class="mobile-more" open>
+          <summary>Plus d’options</summary>
+          <div class="atelier-tools-secondary mobile-more-content">
+            <button class="btn mini subtle" onclick="exportAtelierSessionsCSV(${bi},${ai})" title="Exporter les sessions de cet atelier en CSV">${icon('download','icon-svg-sm')} Exporter les sessions</button>
+          </div>
+        </details>
       </div>
-      ${renderSessions(atelier, bi, ai)}
+      <div class="danger-zone"><button class="btn mini danger-outline" onclick="removeAtelier(${bi},${ai})">${icon('trash','icon-svg-sm')} Supprimer l’atelier</button></div>
+      </section>
     </div>
   `;
   details.addEventListener('toggle',()=>{
@@ -2526,7 +2894,7 @@ function renderSessions(atelier, bi, ai){
         <div class="session-head">
           <h4>${sessionTitle}</h4>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <button class="btn mini danger-outline editable" type="button" onclick="removeSession(${bi},${ai},${si})">${icon('trash','icon-svg-sm')} Supprimer</button>
+            <button class="btn mini danger-outline editable" type="button" onclick="removeSession(${bi},${ai},${si})">${icon('trash','icon-svg-sm')} Supprimer la session</button>
           </div>
         </div>
         <div class="session-form editable">
@@ -2584,13 +2952,13 @@ function renderSessions(atelier, bi, ai){
         <h4>${visitMode?'Visites / calendrier':'Sessions / calendrier'}</h4>
         <div class="summary-right">
           <span class="count">${sessions.length}</span>
-          <button class="btn mini primary editable" type="button" onclick="event.preventDefault(); event.stopPropagation(); openSessionModal(${bi},${ai})">${icon('plus','icon-svg-sm')} ${visitMode?'Nouvelle visite':'Ajouter'}</button>
+          <button class="btn mini primary editable" type="button" onclick="event.preventDefault(); event.stopPropagation(); openSessionModal(${bi},${ai})">${icon('plus','icon-svg-sm')} ${visitMode?'Ajouter une visite':'Ajouter une session'}</button>
           <span class="summary-toggle">${icon('plus','icon-svg-sm')}</span>
         </div>
       </summary>
       <div class="resource-body">
         <div class="management-hint">Passe en entrée conseiller pour créer des sessions et gérer le calendrier.</div>
-        ${cards || `<div class="empty-note">${icon('inbox','icon-svg-sm')} Aucune session renseignée pour le moment.</div>`}
+        ${cards || `<div class="empty-action"><p>${visitMode?'Aucune visite programmée.':'Aucune session programmée.'}</p><button class="btn mini primary editable" type="button" onclick="openSessionModal(${bi},${ai})">${icon('plus','icon-svg-sm')} ${visitMode?'Ajouter une visite':'Ajouter une session'}</button></div>`}
       </div>
     </details>
   `;
@@ -2801,7 +3169,7 @@ function openFicheModal(bi, ai){
   const a = getAtelier(bi, ai);
   useStandardModal();
   document.querySelector('.modal-box').classList.add('workshop-form-view');
-  document.getElementById('modalTitle').textContent = 'Fiche technique de l’atelier';
+  document.getElementById('modalTitle').textContent = 'Document de l’atelier';
   document.getElementById('modalContent').innerHTML = `
     <p class="small-note" style="margin-bottom:10px;">Ajoute directement le document de l’atelier ou renseigne son lien web.</p>
     <div class="modal-grid">
@@ -2874,10 +3242,10 @@ async function confirmFiche(bi, ai){
     a.ficheRessourceNom=uploadedResource.name || file.name;
     a.ficheRessourceType=uploadedResource.type || 'file';
   }
-  logChange('modification', `Fiche technique mise à jour (« ${a.title} »)`);
+  logChange('modification', `Document de l’atelier mis à jour (« ${a.title} »)`);
   saveData();
   closeModal();
-  showToast('Fiche technique enregistrée.','success');
+  showToast('Document de l’atelier enregistré.','success');
   refreshAndOpenAtelier(bi, ai);
 }
 
@@ -3194,8 +3562,9 @@ async function saveToSharedSheet(options){
   const token=getCounselorToken();
   if(!token){
     setSaveStatus('Accès requis');
-    if(!options.silentSuccess) showToast('Reconnecte-toi à l’entrée conseillers pour enregistrer.','danger');
-    applyMode('jeune');
+    pendingSaveAfterLogin=true;
+    if(!options.silentSuccess) showToast('Ta session a expiré. Saisis le code pour reprendre l’enregistrement.','warning');
+    openCounselorLogin();
     return false;
   }
   setSaveStatus('Enregistrement…');
@@ -3204,19 +3573,28 @@ async function saveToSharedSheet(options){
     await postSharedAction('saveState',{token,payload});
     logChange('sauvegarde', 'Données enregistrées et partagées avec l’équipe');
     saveData();
-    setSaveStatus('Enregistré à ' + new Date().toLocaleTimeString('fr-FR').slice(0,5));
-    if(!options.silentSuccess) showToast('Enregistré — visible par toute l’équipe.','success');
+    setDirtyState(false);
+    const savedTime=new Date().toLocaleTimeString('fr-FR').slice(0,5);
+    setSaveStatus('Enregistré et partagé à ' + savedTime);
+    if(!options.silentSuccess) showToast('Enregistré et partagé à '+savedTime+'.','success');
     return true;
   }catch(err){
     const message=String(err.message||err);
     if(message.includes('ACCES_REFUSE')){
       setCounselorToken('');
-      applyMode('jeune');
+      pendingSaveAfterLogin=true;
       setSaveStatus('Session expirée');
-      showToast('La session conseillers a expiré. Reconnecte-toi pour enregistrer.','danger');
+      showToast('La session conseillers a expiré. Saisis le code pour reprendre l’enregistrement.','warning');
+      openCounselorLogin();
     }else{
-      setSaveStatus('');
-      showToast('Connexion impossible : tes modifications restent enregistrées sur cet appareil.','danger');
+      setSaveStatus('Échec de l’enregistrement');
+      let detail=message;
+      if(message.includes('DONNEES_TROP_VOLUMINEUSES')) detail='les données dépassent la capacité de stockage actuelle';
+      else if(message.includes('DONNEES_INVALIDES')) detail='le catalogue transmis est invalide';
+      else if(message.includes('DONNEES_NOMINATIVES_INTERDITES')) detail='d’anciennes données nominatives sont encore présentes';
+      else if(message.includes('ACTION_NON_RECONNUE')) detail='le déploiement Apps Script actif n’est pas la version V35';
+      else if(message.includes('Failed to fetch') || message.includes('NetworkError')) detail='le navigateur ne parvient pas à joindre Apps Script';
+      showToast('Échec de l’enregistrement : '+detail+'. Les modifications restent sur cet appareil.','danger');
     }
     return false;
   }
@@ -3243,6 +3621,7 @@ async function loadSharedData(){
       logChange('confidentialité', `Purge RGPD : ${migrated.purgedParticipants} inscription(s) nominative(s) et ${migrated.purgedDemandes} demande(s) converties en comptage anonyme`);
     }
     saveData();
+    setDirtyState(false);
     refresh();
     setSaveStatus('À jour');
     updateIdeasBadge();
