@@ -2699,11 +2699,10 @@ function renderAtelier(block, atelier, bi, ai){
       ${!hasDocument ? `<div class="empty-action for-conseiller"><p>Aucun document associé à cet atelier.</p><button class="btn mini subtle" type="button" onclick="openFicheModal(${bi},${ai})">${icon('file','icon-svg-sm')} Ajouter un document</button></div>` : ''}
       </section>
       <section class="workshop-zone workshop-sessions-zone">
-        <div class="workshop-zone-head">
-          <h4 class="workshop-zone-title"><span class="zone-number">2</span> Sessions</h4>
-          <button class="btn mini primary editable" type="button" onclick="openSessionModal(${bi},${ai})">${icon('plus','icon-svg-sm')} ${isVisitWorkshop(atelier)?'Ajouter une visite':'Ajouter une session'}</button>
-        </div>
-        ${renderSessions(atelier, bi, ai)}
+  <h4 class="workshop-zone-title">
+    <span class="zone-number">2</span> Sessions
+  </h4>
+  ${renderSessions(atelier, bi, ai)}
       </section>
       <section class="workshop-zone workshop-actions-zone for-conseiller">
       <h4 class="workshop-zone-title"><span class="zone-number">3</span> Actions</h4>
