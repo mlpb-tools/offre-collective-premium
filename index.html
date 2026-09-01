@@ -1597,6 +1597,40 @@
     .modal-head-actions .btn{min-height:38px !important;padding:7px 10px !important;}
   }
 </style>
+
+<style id="v35-readable-subcategory-titles">
+  /* Les titres gardent toute la largeur et ne sont jamais coupés au milieu d'un mot. */
+  .subcategory-title{
+    white-space:normal !important;
+    word-break:normal !important;
+    overflow-wrap:normal !important;
+    hyphens:none !important;
+  }
+  body.mode-conseiller .subcategory{
+    grid-template-columns:minmax(0,1fr) auto !important;
+    grid-template-rows:auto auto !important;
+    align-items:start !important;
+    row-gap:7px !important;
+  }
+  body.mode-conseiller .subcategory-main{
+    grid-column:1 / -1 !important;
+    grid-row:1 !important;
+    min-width:0 !important;
+  }
+  body.mode-conseiller .subcategory-actions{
+    grid-column:2 !important;
+    grid-row:2 !important;
+    justify-self:end !important;
+  }
+  body.mode-conseiller .subcategory-title{
+    min-width:0 !important;
+    padding-right:4px;
+    line-height:1.28 !important;
+  }
+  @media(max-width:720px){
+    body.mode-conseiller .subcategory-title{font-size:14px !important;}
+  }
+</style>
 </head>
 <body class="mode-jeune">
   <header class="app-header">
@@ -2827,7 +2861,7 @@ function renderSubcategory(block, category, bi, ci, entries){
   row.className='subcategory';
   const label = displayTitle(category);
   row.innerHTML=`
-    <button class="subcategory-main" type="button" aria-label="Ouvrir la sous-catégorie ${escAttr(label)}, ${entries.length} ateliers" onclick="openSubcategory(${bi},${ci})">
+    <button class="subcategory-main" type="button" title="${escAttr(label)}" aria-label="Ouvrir la sous-catégorie ${escAttr(label)}, ${entries.length} ateliers" onclick="openSubcategory(${bi},${ci})">
       <span class="subcategory-title">${escapeHtml(label)}</span>
       <span class="count">${entries.length}</span>
     </button>
