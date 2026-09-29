@@ -1652,6 +1652,20 @@
     .catalog-toolbar .territory-filter select,.period-control select{flex:1;min-width:0 !important;}
   }
 </style>
+<style id="v35-young-subcategory-visibility-fix">
+  /* Le panneau ouvert est clair : ne pas hériter du texte blanc de la tuile. */
+  body.mode-jeune .tile.open .tile-body{
+    color:#171718;
+  }
+  body.mode-jeune .tile.open .subcategory{
+    background:#fff;
+    border-color:#dce4ea;
+  }
+  body.mode-jeune .tile.open .subcategory .count{
+    color:#171718;
+    background:#edf1f4;
+  }
+</style>
 </head>
 <body class="mode-jeune">
   <header class="app-header">
