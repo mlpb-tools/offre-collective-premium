@@ -1688,6 +1688,29 @@
 .resource-library{display:grid;gap:14px;margin:16px 0}.resource-library article{border:1px solid #dae2ea;border-radius:12px;padding:16px;background:#f8fafc}.resource-library h4{margin:0 0 8px}.resource-library p{margin:8px 0 12px}.resource-library input[type="file"]{max-width:100%;margin-top:10px}
 @media(max-width:560px){.wizard-progress{gap:4px;font-size:11px}.wizard-progress li{padding:7px 5px}.session-wizard .wizard-actions .btn{flex:1 1 auto}.catalog-view-bar>.result-actions{width:100%}.territory-scope .btn{white-space:normal;text-align:left}}
 </style>
+
+<style id="coanimation-light">
+  /* Coanimation — ajout léger, réservé à l'espace conseiller */
+  .coanim-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid #d7c3cd;border-radius:999px;background:#f8eef3;color:#801347;font-size:10.5px;font-weight:800;line-height:1.2}
+  .coanim-badge.ready{border-color:#b9d9c7;background:#edf8f2;color:#256846}
+  .coanim-panel{grid-column:1/-1;padding:12px;border:1px solid #dfc7d2;border-radius:12px;background:#fff8fb}
+  .coanim-panel-title{display:flex;align-items:center;gap:7px;margin:0 0 9px;font-size:12px;font-weight:850;color:#801347}
+  .coanim-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .coanim-grid .full{grid-column:1/-1}
+  .coanim-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .coanim-feedback{margin-top:8px;padding:9px 10px;border-left:3px solid #a3195b;background:#fff;border-radius:0 9px 9px 0;font-size:11px;line-height:1.4;color:#52606b}
+  .coanim-feedback b{color:#26323c}
+  .coanim-helper{margin:7px 0 0;font-size:11px;line-height:1.4;color:#66737d}
+  .coanim-hub-list{display:grid;gap:10px;margin-top:12px}
+  .coanim-hub-card{padding:12px;border:1px solid #d9e1e7;border-radius:12px;background:#fff}
+  .coanim-hub-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+  .coanim-hub-title{margin:0;font-size:14px;font-weight:850;color:#26323c}
+  .coanim-hub-meta{margin:5px 0 0;font-size:12px;line-height:1.4;color:#66737d}
+  .coanim-hub-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .coanim-hub-empty{padding:18px;border:1px dashed #c7d1d8;border-radius:12px;background:#f8fafb;color:#66737d;text-align:center}
+  @media(max-width:720px){.coanim-grid{grid-template-columns:1fr}.coanim-grid .full{grid-column:1}}
+</style>
+
 </head>
 <body class="mode-jeune">
   <header class="app-header">
@@ -1748,7 +1771,7 @@
         <button id="themesViewBtn" type="button" aria-pressed="true" onclick="setCatalogView('themes')">Explorer les 8 thématiques</button>
         <button id="sessionsViewBtn" type="button" aria-pressed="false" onclick="setCatalogView('sessions')">Prochaines sessions</button>
       </div>
-      <div class="result-actions for-conseiller"><button class="btn mini" type="button" onclick="openResources()">Ressources</button><button class="btn mini primary" type="button" onclick="openSchedulePicker()">+ Programmer une session</button></div>
+      <div class="result-actions for-conseiller"><button class="btn mini" type="button" onclick="openResources()">Ressources</button><button id="coanimationHubBtn" class="btn mini subtle" type="button" onclick="openCoanimationHub()">👥 Coanimer</button><button class="btn mini primary" type="button" onclick="openSchedulePicker()">+ Programmer une session</button></div>
     </div>
     <div id="territoryScope"></div>
     <p id="activeFilters" class="active-filters" hidden></p>
@@ -2142,6 +2165,13 @@ let editRevision = 0;
 let autoSaveTimer = null;
 let sharedSavePromise = null;
 let sharedDataReady = false;
+
+/* Nettoyage automatique des sessions périmées.
+   Règle : une session datée avant aujourd'hui est supprimée.
+   Une session du jour reste visible toute la journée.
+   Les sessions sans date ou avec une date invalide ne sont jamais supprimées. */
+let expiryCleanupTimer = null;
+let expiredSessionsPendingSharedSave = false;
 
 function scheduleAutoSave(){
   clearTimeout(autoSaveTimer);
@@ -2546,6 +2576,11 @@ async function confirmCounselorLogin(){
       pendingSaveAfterLogin=false;
       await saveToSharedSheet();
     }
+    if(expiredSessionsPendingSharedSave){
+      expiredSessionsPendingSharedSave=false;
+      await saveToSharedSheet({automatic:true,silentSuccess:true});
+      showToast('Les sessions périmées ont été nettoyées et la mise à jour a été partagée.','success');
+    }
   }catch(error){
     if(btn){ btn.disabled=false; btn.innerHTML=`${icon('check','icon-svg-sm')} Ouvrir l’entrée conseillers`; }
     const message=String(error.message||error);
@@ -2580,6 +2615,97 @@ function parseFrenchDate(str){
   const date = new Date(Number(y), Number(mo)-1, Number(d));
   return isNaN(date.getTime()) || date.getFullYear()!==Number(y) || date.getMonth()!==Number(mo)-1 || date.getDate()!==Number(d) ? null : date;
 }
+
+function purgeExpiredSessions(options={}){
+  const {
+    share=true,
+    silent=true,
+    renderAfter=true
+  } = options;
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  const removed = [];
+
+  (appData.blocks||[]).forEach(block=>{
+    (block.categories||[]).forEach(category=>{
+      (category.ateliers||[]).forEach(atelier=>{
+        if(!Array.isArray(atelier.sessions) || !atelier.sessions.length) return;
+
+        atelier.sessions = atelier.sessions.filter(session=>{
+          const date = parseFrenchDate(session.date);
+          if(date && date < today){
+            removed.push({
+              atelier: atelier.title || 'Atelier',
+              date: session.date || ''
+            });
+            return false;
+          }
+          return true;
+        });
+      });
+    });
+  });
+
+  if(!removed.length) return 0;
+
+  const count = removed.length;
+  logChange(
+    'expiration automatique',
+    `${count} session${count>1?'s':''} périmée${count>1?'s':''} supprimée${count>1?'s':''} automatiquement`
+  );
+
+  /* Sauvegarde locale immédiate sans générer une modification utilisateur classique. */
+  const snapshot = JSON.stringify(appData);
+  localStorage.setItem(STORAGE_KEY, snapshot);
+  localSnapshot = snapshot;
+
+  if(share){
+    if(sharedDataReady && getCounselorToken()){
+      expiredSessionsPendingSharedSave = false;
+      saveToSharedSheet({automatic:true,silentSuccess:true});
+    }else{
+      /* La suppression sera partagée dès la prochaine ouverture sécurisée
+         de l'entrée conseillers. */
+      expiredSessionsPendingSharedSave = true;
+    }
+  }
+
+  if(renderAfter) render();
+
+  if(!silent && document.body.classList.contains('mode-conseiller')){
+    showToast(
+      `${count} session${count>1?'s':''} périmée${count>1?'s':''} supprimée${count>1?'s':''} automatiquement.`,
+      'success'
+    );
+  }
+
+  return count;
+}
+
+function runExpiryCleanup(){
+  purgeExpiredSessions({
+    share:true,
+    silent:!document.body.classList.contains('mode-conseiller'),
+    renderAfter:true
+  });
+}
+
+function startExpiryCleanupTimer(){
+  clearInterval(expiryCleanupTimer);
+
+  /* Contrôle immédiat puis toutes les 60 secondes.
+     Cela permet notamment de nettoyer les sessions juste après minuit
+     sans nécessiter de recharger la page. */
+  runExpiryCleanup();
+  expiryCleanupTimer = setInterval(runExpiryCleanup, 60000);
+}
+
+window.addEventListener('focus', runExpiryCleanup);
+document.addEventListener('visibilitychange', ()=>{
+  if(!document.hidden) runExpiryCleanup();
+});
 
 function collectAllSessions(){
   const rows = [];
@@ -2659,14 +2785,14 @@ function csvEscape(value){
 function exportAtelierSessionsCSV(bi, ai){
   const atelier = getAtelier(bi, ai);
   if(!atelier) return;
-  const header = ['Atelier','Date','Lieu','Horaire','Inscrits'];
+  const header = ['Atelier','Date','Lieu','Horaire','Inscrits','Animateur referent','Coanimation','Coanimateur','Niveau implication'];
   const lines = [header.join(';')];
   const sessions = atelier.sessions||[];
   if(!sessions.length){
-    lines.push([atelier.title, '', '', '', 0].map(csvEscape).join(';'));
+    lines.push([atelier.title, '', '', '', 0, '', '', '', ''].map(csvEscape).join(';'));
   } else {
     sessions.forEach(s=>{
-      lines.push([atelier.title, s.date||'', s.lieu||'', s.horaire||'', (s.inscrits||0)].map(csvEscape).join(';'));
+      lines.push([atelier.title, s.date||'', s.lieu||'', s.horaire||'', (s.inscrits||0), s.animateur||'', coanimationStatusLabel(s), s.coanimateur||'', s.coanimationLevel||''].map(csvEscape).join(';'));
     });
   }
   const blob = new Blob(['\uFEFF' + lines.join('\n')], {type:'text/csv;charset=utf-8'});
@@ -2680,17 +2806,17 @@ function exportAtelierSessionsCSV(bi, ai){
 }
 
 function exportStatsCSV(){
-  const header = ['Categorie','Sous-categorie','Atelier','Date','Lieu','Horaire','Inscrits'];
+  const header = ['Categorie','Sous-categorie','Atelier','Date','Lieu','Horaire','Inscrits','Animateur referent','Coanimation','Coanimateur','Niveau implication'];
   const lines = [header.join(';')];
   appData.blocks.forEach(block=>{
     block.categories.forEach(category=>{
       (category.ateliers||[]).forEach(atelier=>{
         const sessions = atelier.sessions||[];
         if(!sessions.length){
-          lines.push([displayTitle(block), displayTitle(category), atelier.title, '', '', '', 0].map(csvEscape).join(';'));
+          lines.push([displayTitle(block), displayTitle(category), atelier.title, '', '', '', 0, '', '', '', ''].map(csvEscape).join(';'));
         } else {
           sessions.forEach(s=>{
-            lines.push([displayTitle(block), displayTitle(category), atelier.title, s.date||'', s.lieu||'', s.horaire||'', (s.inscrits||0)].map(csvEscape).join(';'));
+            lines.push([displayTitle(block), displayTitle(category), atelier.title, s.date||'', s.lieu||'', s.horaire||'', (s.inscrits||0), s.animateur||'', coanimationStatusLabel(s), s.coanimateur||'', s.coanimationLevel||''].map(csvEscape).join(';'));
           });
         }
       });
@@ -2923,7 +3049,7 @@ function workshopSearchText(block,category,atelier){
     atelier?.intervenant,atelier?.prerequis,(atelier?.contenu||[]).join(' ')].join(' ');
 }
 function sessionSearchText(session){
-  return [session.lieu,session.date,session.horaire,session.structureName,getSessionTerritoryLabel(session)].join(' ');
+  return [session.lieu,session.date,session.horaire,session.structureName,getSessionTerritoryLabel(session),session.animateur,session.coanimateur,session.coanimationLevel,coanimationStatusLabel(session)].join(' ');
 }
 function containsSearchWords(text,query=searchQuery){
   const normalized=normalizeSearchText(text);
@@ -2977,8 +3103,22 @@ function updateCatalogControls(){
   const note=document.getElementById('activeFilters');
   note.textContent=tags.join(' · ');note.hidden=!tags.length;
 }
+const COANIMATION_LEVELS=['','Découvrir','Participer','Coanimer','Animer','Transmettre'];
+function renderCoanimationLevelOptions(selected=''){
+  return COANIMATION_LEVELS.map(level=>`<option value="${escAttr(level)}" ${level===selected?'selected':''}>${level||'À préciser'}</option>`).join('');
+}
+function coanimationStatusLabel(session){
+  if(session?.coanimationStatus==='recherche') return 'Coanimateur recherché';
+  if(session?.coanimationStatus==='binome') return 'Binôme constitué';
+  return 'Non prévue';
+}
+function coanimationBadgeHtml(session){
+  if(session?.coanimationStatus==='recherche') return `<span class="coanim-badge for-conseiller">👥 Coanimateur recherché</span>`;
+  if(session?.coanimationStatus==='binome') return `<span class="coanim-badge ready for-conseiller">👥 Binôme constitué</span>`;
+  return '';
+}
 function sessionPreviewHtml(session){
-  return `<span class="session-badge date-badge">${escapeHtml(session.date||'Date à préciser')}${session.horaire?' · '+escapeHtml(session.horaire):''}</span><span class="session-badge territory-badge">${escapeHtml(getSessionTerritoryLabel(session))}</span>${session.lieu?`<span class="result-location">${escapeHtml(session.lieu)}</span>`:''}`;
+  return `<span class="session-badge date-badge">${escapeHtml(session.date||'Date à préciser')}${session.horaire?' · '+escapeHtml(session.horaire):''}</span><span class="session-badge territory-badge">${escapeHtml(getSessionTerritoryLabel(session))}</span>${coanimationBadgeHtml(session)}${session.lieu?`<span class="result-location">${escapeHtml(session.lieu)}</span>`:''}`;
 }
 function renderDirectResults(){
   const entries=searchWorkshops();
@@ -3010,6 +3150,7 @@ function renderUpcomingSessions(){
       <p class="result-path">${escapeHtml(displayTitle(block))} / ${escapeHtml(displayTitle(category))}</p>
       <div class="result-actions">
         <button class="btn mini" type="button" onclick="openAtelierDetail(${bi},${ai},true,${si})">Voir la session</button>
+        ${session.coanimationStatus==='recherche'?`<button class="btn mini primary for-conseiller" type="button" onclick="openCoanimationModal(${bi},${ai},${si})">👥 Je me positionne</button>`:''}
         ${safeUrl(session.inscription)?`<a class="btn mini primary" href="${escAttr(safeUrl(session.inscription))}" target="_blank" rel="noopener">S’inscrire</a>`:'<span class="small-note">Lien d’inscription à venir</span>'}
       </div>
     </article>`).join('')||'<div class="catalog-empty">Aucune session à venir avec ces filtres. Les ateliers sans date restent accessibles dans les huit thématiques.</div>';
@@ -3085,6 +3226,16 @@ function buildScheduleFields(bi,ai){
     <div><label for="mSessionStart">Heure de début *</label><input id="mSessionStart" type="time" required></div><div><label for="mSessionEnd">Heure de fin *</label><input id="mSessionEnd" type="time" required></div>
     <div class="full"><label for="mSessionLieu">Lieu ou accès à distance *</label><input id="mSessionLieu" required placeholder="Nom du lieu et adresse, ou visioconférence"></div>
     <div class="full"><label for="mSessionInscription">Lien d’inscription (facultatif)</label><input id="mSessionInscription" type="url" placeholder="https://…"></div>
+    <div class="coanim-panel">
+      <p class="coanim-panel-title">👥 Coanimation <span class="small-note">— facultatif</span></p>
+      <div class="coanim-grid">
+        <div><label for="mSessionAnimateur">Animateur référent</label><input id="mSessionAnimateur" placeholder="Nom du professionnel"></div>
+        <div><label for="mSessionCoanimStatus">Coanimation</label><select id="mSessionCoanimStatus"><option value="">Non prévue</option><option value="recherche">Coanimateur recherché</option><option value="binome">Binôme constitué</option></select></div>
+        <div><label for="mSessionCoanimateur">Coanimateur</label><input id="mSessionCoanimateur" placeholder="À renseigner si connu"></div>
+        <div><label for="mSessionCoanimLevel">Niveau d’implication</label><select id="mSessionCoanimLevel">${renderCoanimationLevelOptions('')}</select></div>
+      </div>
+      <p class="coanim-helper">Progression possible : découvrir → participer → coanimer → animer → transmettre.</p>
+    </div>
     <div class="full"><label for="mSessionNotes">Informations complémentaires (facultatif)</label><textarea id="mSessionNotes"></textarea></div>`;
   for(const [id,value] of Object.entries(old)){const el=document.getElementById(id);if(el)el.value=value;}
 }
@@ -3113,12 +3264,12 @@ function readScheduleSession(){
   const inscription=valueOf('mSessionInscription').trim();
   if(inscription&&!safeUrl(inscription)){showScheduleStep(2);document.getElementById('mSessionInscription').focus();showToast('Le lien d’inscription doit commencer par https://.','warning');return null;}
   const [year,month,day]=valueOf('mSessionDate').split('-');
-  return {structureType:valueOf('mStructureType').trim(),structureName:valueOf('mStructureName').trim(),sector:valueOf('mStructureSector').trim(),organizerService:valueOf('mOrganizerService').trim(),territory:valueOf('mSessionTerritory'),date:`${day}/${month}/${year}`,horaire:`${start}–${end}`,lieu:valueOf('mSessionLieu').trim(),inscription,notes:valueOf('mSessionNotes').trim(),inscrits:0,avis:[]};
+  return {structureType:valueOf('mStructureType').trim(),structureName:valueOf('mStructureName').trim(),sector:valueOf('mStructureSector').trim(),organizerService:valueOf('mOrganizerService').trim(),territory:valueOf('mSessionTerritory'),date:`${day}/${month}/${year}`,horaire:`${start}–${end}`,lieu:valueOf('mSessionLieu').trim(),inscription,animateur:valueOf('mSessionAnimateur').trim(),coanimationStatus:valueOf('mSessionCoanimStatus'),coanimateur:valueOf('mSessionCoanimateur').trim(),coanimationLevel:valueOf('mSessionCoanimLevel'),notes:valueOf('mSessionNotes').trim(),inscrits:0,avis:[]};
 }
 function reviewSchedule(){
   const session=readScheduleSession();if(!session)return;
   const atelier=getAtelier(scheduleWizard.bi,scheduleWizard.ai);
-  const rows=[['Atelier',displayTitle(atelier)],['Territoire',TERRITORIES.find(t=>t.id===session.territory)?.label],['Date',session.date],['Horaire',session.horaire],['Lieu',session.lieu],['Inscription',session.inscription||'Non renseignée'],['Informations complémentaires',session.notes||'Aucune']];
+  const rows=[['Atelier',displayTitle(atelier)],['Territoire',TERRITORIES.find(t=>t.id===session.territory)?.label],['Date',session.date],['Horaire',session.horaire],['Lieu',session.lieu],['Inscription',session.inscription||'Non renseignée'],['Animateur référent',session.animateur||'Non renseigné'],['Coanimation',coanimationStatusLabel(session)],['Coanimateur',session.coanimateur||'Non renseigné'],['Niveau d’implication',session.coanimationLevel||'Non renseigné'],['Informations complémentaires',session.notes||'Aucune']];
   if(isVisitWorkshop(atelier))rows.push(['Type de structure',session.structureType],['Structure',session.structureName],['Secteur',session.sector],['Service organisateur',session.organizerService]);
   document.getElementById('scheduleReview').innerHTML='<dl class="schedule-review">'+rows.map(([label,value])=>`<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value||'')}</dd></div>`).join('')+'</dl>';
   showScheduleStep(3);
@@ -3575,6 +3726,7 @@ function renderSessions(atelier, bi, ai){
         <div class="session-key-info">
           <span class="session-badge date-badge">${icon('calendar','icon-svg-sm')} ${escapeHtml(s.date||'Date à préciser')}</span>
           <span class="session-badge territory-badge">${escapeHtml(getSessionTerritoryLabel(s))}</span>
+          ${coanimationBadgeHtml(s)}
         </div>
         <div class="session-form editable">
           <div class="full session-territory-field"><label for="session-territory-${bi}-${ai}-${si}">Territoire de cette session</label>
@@ -3589,6 +3741,22 @@ function renderSessions(atelier, bi, ai){
           <input value="${escAttr(s.horaire||'')}" placeholder="Horaire" oninput="updateSession(${bi},${ai},${si},'horaire',this.value)">
           <input value="${escAttr(s.lieu||'')}" placeholder="Lieu" oninput="updateSession(${bi},${ai},${si},'lieu',this.value)">
           <input value="${escAttr(s.inscription||'')}" placeholder="Lien linscription.com de cette session" oninput="updateSession(${bi},${ai},${si},'inscription',this.value)">
+          <div class="coanim-panel">
+            <p class="coanim-panel-title">👥 Coanimation</p>
+            <div class="coanim-grid">
+              <div><label>Animateur référent</label><input value="${escAttr(s.animateur||'')}" placeholder="Nom du professionnel" oninput="updateSession(${bi},${ai},${si},'animateur',this.value)"></div>
+              <div><label>Statut</label><select onchange="updateSession(${bi},${ai},${si},'coanimationStatus',this.value);refreshAndOpenAtelier(${bi},${ai})"><option value="" ${!s.coanimationStatus?'selected':''}>Non prévue</option><option value="recherche" ${s.coanimationStatus==='recherche'?'selected':''}>Coanimateur recherché</option><option value="binome" ${s.coanimationStatus==='binome'?'selected':''}>Binôme constitué</option></select></div>
+              <div><label>Coanimateur</label><input value="${escAttr(s.coanimateur||'')}" placeholder="Nom du professionnel" oninput="updateSession(${bi},${ai},${si},'coanimateur',this.value)"></div>
+              <div><label>Niveau d’implication</label><select onchange="updateSession(${bi},${ai},${si},'coanimationLevel',this.value)">${renderCoanimationLevelOptions(s.coanimationLevel||'')}</select></div>
+            </div>
+            <div class="coanim-actions">
+              ${!s.coanimationStatus?`<button class="btn mini primary" type="button" onclick="enableCoanimation(${bi},${ai},${si})">👥 Ouvrir à la coanimation</button>`:''}
+              ${s.coanimationStatus==='recherche'?`<button class="btn mini primary" type="button" onclick="openCoanimationModal(${bi},${ai},${si})">👥 Je me positionne</button>`:''}
+              ${s.coanimationStatus==='binome'?`<button class="btn mini subtle" type="button" onclick="openCoanimationFeedbackModal(${bi},${ai},${si})">↗ Retour d’expérience</button>`:''}
+              ${s.coanimationStatus?`<button class="btn mini danger-outline" type="button" onclick="cancelCoanimation(${bi},${ai},${si},false)">Annuler la coanimation</button>`:''}
+            </div>
+            ${s.coanimationFeedback?.learned?`<div class="coanim-feedback"><b>Dernier apprentissage :</b> ${escapeHtml(s.coanimationFeedback.learned)}</div>`:''}
+          </div>
           <textarea class="full" placeholder="Notes / consignes de session" oninput="updateSession(${bi},${ai},${si},'notes',this.value)">${escapeHtml(s.notes||'')}</textarea>
         </div>
         <div class="for-conseiller small-note">Les inscriptions nominatives se font sur linscription.com. Cet outil ne conserve qu’un nombre d’inscrits, jamais de nom ni de contact.</div>
@@ -3603,6 +3771,8 @@ function renderSessions(atelier, bi, ai){
           <div class="field"><b>Date</b><span>${escapeHtml(s.date||'Non renseignée')}</span></div>
           <div class="field"><b>Horaire</b><span>${escapeHtml(s.horaire||'Non renseigné')}</span></div>
           <div class="field"><b>Lieu</b><span>${escapeHtml(s.lieu||'Non renseigné')}</span></div>
+          ${s.animateur?`<div class="field for-conseiller"><b>Animateur référent</b><span>${escapeHtml(s.animateur)}</span></div>`:''}
+          ${s.coanimationStatus?`<div class="field for-conseiller"><b>Coanimation</b><span>${escapeHtml(coanimationStatusLabel(s))}${s.coanimateur?` · ${escapeHtml(s.coanimateur)}`:''}${s.coanimationLevel?` · ${escapeHtml(s.coanimationLevel)}`:''}</span></div>`:''}
         </div>` : `<div class="empty-note">${icon('inbox','icon-svg-sm')} Aucune information de session renseignée pour le moment.</div>`}
         <div class="inscrits-row">
           <div class="inscrits-count-wrap">
@@ -4004,6 +4174,146 @@ function confirmRemoveAtelier(bi,ai){
 function addSession(bi, ai){
   openSessionModal(bi, ai);
 }
+
+
+function enableCoanimation(bi,ai,si){
+  if(!document.body.classList.contains('mode-conseiller'))return;
+  const atelier=getAtelier(bi,ai),session=atelier?.sessions?.[si];if(!session)return;
+  session.coanimationStatus='recherche';
+  if(!session.coanimationLevel) session.coanimationLevel='Coanimer';
+  logChange('modification',`Coanimation ouverte pour « ${atelier.title} »`);
+  saveData();
+  refreshAndOpenAtelier(bi,ai);
+  showToast('La session est maintenant ouverte à la coanimation.','success');
+}
+
+function cancelCoanimation(bi,ai,si,returnToHub=false){
+  if(!document.body.classList.contains('mode-conseiller'))return;
+  const atelier=getAtelier(bi,ai),session=atelier?.sessions?.[si];if(!session)return;
+  const hadBinome=session.coanimationStatus==='binome';
+  confirmAction({
+    title:'Annuler la coanimation',
+    message: hadBinome
+      ? 'Confirmer l’annulation de la coanimation et du binôme pour cette session ?'
+      : 'Confirmer la fermeture de la coanimation pour cette session ?',
+    detail:'La session repassera en « coanimation non activée ». Les informations liées à la coanimation seront retirées. Le reste de la session ne change pas.',
+    confirmLabel:'Oui, annuler la coanimation',
+    danger:false,
+    onConfirm:()=>{
+      session.coanimationStatus='';
+      session.coanimateur='';
+      session.coanimationLevel='';
+      session.coanimationFeedback=null;
+      logChange('modification',`Coanimation annulée pour « ${atelier.title} »`);
+      saveData();
+      closeModal();
+      render();
+      if(returnToHub){
+        setTimeout(openCoanimationHub,0);
+      }else{
+        refreshAndOpenAtelier(bi,ai);
+      }
+      showToast('Coanimation annulée. La session est revenue à son état initial.','success');
+    }
+  });
+}
+
+function openCoanimationHub(){
+  if(!document.body.classList.contains('mode-conseiller'))return;
+  useStandardModal();
+  document.getElementById('modalTitle').textContent='Coanimation';
+  const rows=indexedWorkshops()
+    .flatMap(({atelier,bi,ai})=>(atelier.sessions||[]).map((session,si)=>({atelier,bi,ai,session,si,date:parseFrenchDate(session.date)})))
+    .filter(row=>isSessionVisibleForTerritory(row.session,row.atelier))
+    .sort((a,b)=>{
+      const ad=a.date?.getTime?.()||Number.MAX_SAFE_INTEGER;
+      const bd=b.date?.getTime?.()||Number.MAX_SAFE_INTEGER;
+      return ad-bd;
+    });
+
+  const cards=rows.map(({atelier,bi,ai,session,si})=>{
+    const status=coanimationStatusLabel(session);
+    const badge=session.coanimationStatus==='recherche'
+      ? '<span class="coanim-badge">👥 Coanimateur recherché</span>'
+      : session.coanimationStatus==='binome'
+        ? '<span class="coanim-badge ready">👥 Binôme constitué</span>'
+        : '<span class="summary-chip">Coanimation non activée</span>';
+    const action=!session.coanimationStatus
+      ? `<button class="btn mini primary" type="button" onclick="enableCoanimation(${bi},${ai},${si});setTimeout(openCoanimationHub,0)">👥 Ouvrir à la coanimation</button>`
+      : session.coanimationStatus==='recherche'
+        ? `<button class="btn mini primary" type="button" onclick="openCoanimationModal(${bi},${ai},${si})">👥 Je me positionne</button>`
+        : `<button class="btn mini subtle" type="button" onclick="openCoanimationFeedbackModal(${bi},${ai},${si})">↗ Retour d’expérience</button>`;
+    return `<article class="coanim-hub-card">
+      <div class="coanim-hub-head">
+        <div>
+          <h4 class="coanim-hub-title">${escapeHtml(displayTitle(atelier))}</h4>
+          <p class="coanim-hub-meta">${escapeHtml(session.date||'Date à préciser')} · ${escapeHtml(getSessionTerritoryLabel(session))}${session.lieu?' · '+escapeHtml(session.lieu):''}${session.animateur?' · Référent : '+escapeHtml(session.animateur):''}</p>
+        </div>
+        ${badge}
+      </div>
+      <div class="coanim-hub-actions">
+        ${action}
+        ${session.coanimationStatus?`<button class="btn mini danger-outline" type="button" onclick="cancelCoanimation(${bi},${ai},${si},true)">Annuler la coanimation</button>`:''}
+        <button class="btn mini" type="button" onclick="closeModal();openAtelierDetail(${bi},${ai},true,${si})">Voir la session</button>
+      </div>
+    </article>`;
+  }).join('');
+
+  document.getElementById('modalContent').innerHTML=`
+    <p class="small-note">Un accès direct pour découvrir les sessions, ouvrir une coanimation, se positionner et capitaliser l’expérience.</p>
+    <div class="coanim-hub-list">${cards||'<div class="coanim-hub-empty">Aucune session disponible avec le filtre de territoire actuel.</div>'}</div>`;
+  openModal();
+}
+
+function openCoanimationModal(bi,ai,si){
+  if(!document.body.classList.contains('mode-conseiller'))return;
+  const atelier=getAtelier(bi,ai),session=atelier?.sessions?.[si];if(!session)return;
+  useStandardModal();
+  document.getElementById('modalTitle').textContent='Je me positionne en coanimation';
+  document.getElementById('modalContent').innerHTML=`
+    <p><strong>${escapeHtml(displayTitle(atelier))}</strong></p>
+    <p class="small-note">Choisis simplement ton niveau d’implication. Tu pourras évoluer au fil des sessions.</p>
+    <div class="modal-grid">
+      <div class="full"><label for="mCoanimName">Mon nom *</label><input id="mCoanimName" value="${escAttr(session.coanimateur||'')}" placeholder="Prénom et nom"></div>
+      <div class="full"><label for="mCoanimLevel">Je souhaite</label><select id="mCoanimLevel">${renderCoanimationLevelOptions(session.coanimationLevel||'Coanimer')}</select></div>
+    </div>
+    <div class="actions"><button class="btn primary" type="button" onclick="confirmCoanimationPosition(${bi},${ai},${si})">Confirmer ma participation</button><button class="btn" type="button" onclick="closeModal()">Annuler</button></div>`;
+  openModal();
+}
+function confirmCoanimationPosition(bi,ai,si){
+  const atelier=getAtelier(bi,ai),session=atelier?.sessions?.[si];if(!session)return;
+  const name=valueOf('mCoanimName').trim(),level=valueOf('mCoanimLevel')||'Coanimer';
+  if(!name){document.getElementById('mCoanimName')?.focus();showToast('Renseigne ton nom pour te positionner.','warning');return;}
+  session.coanimateur=name;session.coanimationLevel=level;session.coanimationStatus='binome';
+  logChange('modification',`Coanimation constituée pour « ${atelier.title} »`);
+  saveData();closeModal();refreshAndOpenAtelier(bi,ai);showToast('Positionnement enregistré. Le binôme est constitué.','success');
+}
+function openCoanimationFeedbackModal(bi,ai,si){
+  if(!document.body.classList.contains('mode-conseiller'))return;
+  const atelier=getAtelier(bi,ai),session=atelier?.sessions?.[si];if(!session)return;
+  const feedback=session.coanimationFeedback||{};
+  useStandardModal();
+  document.getElementById('modalTitle').textContent='Retour d’expérience coanimation';
+  document.getElementById('modalContent').innerHTML=`
+    <p><strong>${escapeHtml(displayTitle(atelier))}</strong></p>
+    <p class="small-note">Trois questions, quelques minutes : l’objectif est d’apprendre et d’améliorer ensemble.</p>
+    <div class="modal-grid">
+      <div class="full"><label for="mCoanimWorked">Ce qui a bien fonctionné</label><textarea id="mCoanimWorked">${escapeHtml(feedback.worked||'')}</textarea></div>
+      <div class="full"><label for="mCoanimImprove">Ce qu’on améliorerait</label><textarea id="mCoanimImprove">${escapeHtml(feedback.improve||'')}</textarea></div>
+      <div class="full"><label for="mCoanimLearned">Ce que j’ai appris</label><textarea id="mCoanimLearned">${escapeHtml(feedback.learned||'')}</textarea></div>
+      <div class="full"><label for="mCoanimNextLevel">Prochaine étape</label><select id="mCoanimNextLevel">${renderCoanimationLevelOptions(session.coanimationLevel||'')}</select></div>
+    </div>
+    <div class="actions"><button class="btn primary" type="button" onclick="saveCoanimationFeedback(${bi},${ai},${si})">Enregistrer le retour</button><button class="btn" type="button" onclick="closeModal()">Annuler</button></div>`;
+  openModal();
+}
+function saveCoanimationFeedback(bi,ai,si){
+  const atelier=getAtelier(bi,ai),session=atelier?.sessions?.[si];if(!session)return;
+  session.coanimationFeedback={worked:valueOf('mCoanimWorked').trim(),improve:valueOf('mCoanimImprove').trim(),learned:valueOf('mCoanimLearned').trim(),at:new Date().toISOString()};
+  session.coanimationLevel=valueOf('mCoanimNextLevel')||session.coanimationLevel||'';
+  logChange('modification',`Retour d’expérience coanimation (« ${atelier.title} »)`);
+  saveData();closeModal();refreshAndOpenAtelier(bi,ai);showToast('Retour d’expérience enregistré.','success');
+}
+
 function updateSession(bi, ai, si, field, value){
   getAtelier(bi, ai).sessions[si][field] = value;
   saveData();
@@ -4252,6 +4562,12 @@ async function loadSharedData(){
     }
     appData = data;
     sharedDataReady=true;
+
+    /* Nettoyage des sessions déjà périmées dans les données partagées.
+       La suppression reste locale tant qu'un conseiller authentifié
+       n'a pas ouvert sa session, puis elle est automatiquement partagée. */
+    purgeExpiredSessions({share:true,silent:true,renderAfter:false});
+
     if(migrated.purgedParticipants || migrated.purgedDemandes){
       logChange('confidentialité', `Purge RGPD : ${migrated.purgedParticipants} inscription(s) nominative(s) et ${migrated.purgedDemandes} demande(s) converties en comptage anonyme`);
     }
@@ -4426,10 +4742,16 @@ function refreshAndOpenAtelier(bi,ai){
   }
 }
 
+/* Nettoyage de la copie locale avant le premier affichage. */
+purgeExpiredSessions({share:false,silent:true,renderAfter:false});
+
 render();
 setMode('jeune');
 applyDeepLink();
-loadSharedData().then(applyDeepLink);
+loadSharedData().then(()=>{
+  applyDeepLink();
+  startExpiryCleanupTimer();
+});
 applyAdminVisibility();
 updateIdeasBadge();
 </script>
